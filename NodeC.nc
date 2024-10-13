@@ -47,6 +47,11 @@ implementation {
 // Sep/28/2024
 // Zaid Laffta
 
+// Project 1
+// CSE 160
+// Sep/28/2024
+// Zaid Laffta
+
 #include <Timer.h>
 #include "includes/command.h"
 #include "includes/packet.h"
@@ -64,6 +69,7 @@ implementation {
 
     Node -> MainC.Boot;
     Node.Receive -> GeneralReceive;
+
     components ActiveMessageC;
     Node.AMControl -> ActiveMessageC;
 
@@ -73,21 +79,19 @@ implementation {
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
 
-    // Adding Flooding component
+    // Add Flooding component
     components FloodingC;
     Node.Flooding -> FloodingC;
 
-    // Adding NeighborDiscovery component
+    // Add NeighborDiscovery component
     components NeighborDiscoveryC;
     Node.NeighborDiscovery -> NeighborDiscoveryC;
 
-    // Adding LinkStateRouting component
-
+    // Add LinkStateRouting component
     components LinkStateRoutingC;
     Node.LinkStateRouting -> LinkStateRoutingC;
 
     // Connecting LinkStateRouting to NeighborDiscovery and SimpleSend
-
     LinkStateRoutingC.NeighborDiscovery -> NeighborDiscoveryC;
     LinkStateRoutingC.Broadcast -> SimpleSendC;
 }

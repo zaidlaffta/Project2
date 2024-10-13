@@ -265,6 +265,7 @@ implementation {
    event void CommandHandler.printRouteTable() {
       // Print the Link-State Routing table
       call LinkStateRouting.printRouteTable();
+      dbg(GENERAL_CHANNEL, "Zzzzzzzzzzzzzzz Link State Routing \n");
    }
 
    event void CommandHandler.printLinkState() {

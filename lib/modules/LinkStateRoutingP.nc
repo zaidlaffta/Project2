@@ -129,18 +129,26 @@ command error_t LinkStateRouting.start() {
         // Handle new neighbor discovery, potentially update routing table
     }
 
-    // Command to ping a destination
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
-        dbg(GENERAL_CHANNEL, "Pinging destination: %d\n", destination);
-        pack myMsg;
-        myMsg.src = TOS_NODE_ID;
-        myMsg.dest = destination;
-        myMsg.TTL = 1;
-        myMsg.protocol = PROTOCOL_PING;
-        memcpy(myMsg.payload, payload, PACKET_MAX_PAYLOAD_SIZE);
+    // Declare the pack structure at the beginning of the function
+    pack myMsg;
 
-        call Broadcast.send(myMsg, destination);
-    }
+    // Debug message to indicate the destination of the ping
+    dbg(GENERAL_CHANNEL, "Pinging destination: %d\n", destination);
+
+    // Set the fields of the packet (myMsg)
+    myMsg.src = TOS_NODE_ID;
+    myMsg.dest = destination;
+    myMsg.TTL = 1;
+    myMsg.protocol = PROTOCOL_PING;
+
+    // Copy the payload into the packet's payload field
+    memcpy(myMsg.payload, payload, PACKET_MAX_PAYLOAD_SIZE);
+
+    // Call the Broadcast.send function to send the message (use &myMsg to pass a pointer)
+    call Broadcast.send(&myMsg, AM_BROADCAST_ADDR);
+}
+
 
     // Command to route a packet
     command void LinkStateRouting.routePacket(pack* myMsg) {

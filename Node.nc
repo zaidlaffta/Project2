@@ -25,6 +25,8 @@ module Node {
    uses interface SimpleSend as Sender;
    uses interface CommandHandler;
 }
+laksdjf
+int lkajsdf 
 
 implementation {
    pack sendPackage;

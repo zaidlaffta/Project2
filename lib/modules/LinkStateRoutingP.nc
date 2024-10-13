@@ -84,7 +84,7 @@ command error_t LinkStateRouting.start() {
 
     // Step 2: Initialize or reset the routing table
     routeTableSize = 0;  // Reset the size of the routing table
-    dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
+    //dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
 
     // Step 3: (Optional) Start any necessary timers or processes for link-state routing
     // Example: Start a periodic timer to broadcast link-state updates (if applicable)

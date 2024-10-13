@@ -100,16 +100,22 @@ command error_t LinkStateRouting.start() {
 
 ////////////////////////////////////////////////
 
-    // Command to handle link-state packets
-    command void LinkStateRouting.handleLS(pack* myMsg) {
-        dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
-        uint16_t src;
-        src = myMsg->src;
-        uint16_t cost;
-        cost = myMsg->TTL;  // Assuming TTL is being used as a cost here
-        
-        addRoute(src, myMsg->src, cost);
-    }
+   command void LinkStateRouting.handleLS(pack* myMsg) {
+    // Declare all variables at the beginning of the function
+    uint16_t src;
+    uint16_t cost;
+
+    // Debug message to indicate the function is handling a Link State packet
+    dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
+
+    // Assign the source node from the message and the cost (using TTL as cost)
+    src = myMsg->src;
+    cost = myMsg->TTL;  // Assuming TTL represents the cost
+
+    // Add the route to the routing table using the addRoute function
+    addRoute(src, myMsg->src, cost);
+}
+
 
     // Command to handle a lost neighbor
     command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {

@@ -75,12 +75,12 @@ command void LinkStateRouting.printRouteTable() {
 command error_t LinkStateRouting.start() {
 
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
-    bool result;
+   // bool result;
     // Step 1: Initialize NeighborDiscovery
     result = call NeighborDiscovery.initialize();
     if (result != SUCCESS) {
         dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-        return result;  // Return the error code if initialization fails
+      //  return result;  // Return the error code if initialization fails
     }
 
     // Step 2: Initialize or reset the routing table
@@ -96,7 +96,7 @@ command error_t LinkStateRouting.start() {
     // }
 
     // If everything is successful, return SUCCESS
-    return SUCCESS;
+    //return SUCCESS;
 }
 
 ////////////////////////////////////////////////

@@ -82,8 +82,8 @@ implementation {
     Node.NeighborDiscovery -> NeighborDiscoveryC;
 
     // Adding LinkStateRouting component
-    components LinkStateRoutingC;
-    Node.LinkStateRouting -> LinkStateRoutingC;
+   // components LinkStateRoutingC;
+   // Node.LinkStateRouting -> LinkStateRoutingC;
 
     // Connecting LinkStateRouting to NeighborDiscovery and SimpleSend
     LinkStateRoutingC.NeighborDiscovery -> NeighborDiscoveryC;

@@ -73,8 +73,9 @@ command void LinkStateRouting.printRouteTable() {
 
    // Command to start the link-state routing process
 command error_t LinkStateRouting.start() {
-    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
 
+    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
+    error_t result;
     // Step 1: Initialize NeighborDiscovery
     error_t result = call NeighborDiscovery.initialize();
     if (result != SUCCESS) {

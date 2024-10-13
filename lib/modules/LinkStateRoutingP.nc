@@ -96,7 +96,7 @@ command error_t LinkStateRouting.start() {
 
     // If everything is successful, return SUCCESS
     //return SUCCESS;
-}
+
 
 ////////////////////////////////////////////////
 

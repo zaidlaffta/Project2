@@ -1,15 +1,14 @@
-/**
- * @author
- * $Author: abeltran2 $
- * $LastChangedDate: 2014-08-31 16:06:26 -0700 (Sun, 31 Aug 2014) $
- *
- */
+// Project 2
+// CSE 160
+// Sep/28/2024
+// Zaid Laffta
 
+#include <Timer.h>
+#include "../../includes/channels.h"
 #include "../../includes/packet.h"
 #include "../../includes/protocol.h"
 #include "../../includes/CommandMsg.h"
 #include "../../includes/command.h"
-#include "../../includes/channels.h"
 
 module LinkStateRoutingP {
     provides interface LinkStateRouting;

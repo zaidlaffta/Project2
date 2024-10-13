@@ -57,11 +57,12 @@ implementation {
     // Command to handle link-state packets
     command void LinkStateRouting.handleLS(pack* myMsg) {
         dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
-        // Process link-state packet, update routing table
+
+        // Extract source and cost from the received packet
         uint16_t src = myMsg->src;
-        uint16_t cost = myMsg->TTL;
+        uint16_t cost = myMsg->TTL;  // Assuming TTL is being used as a cost here
         
-        // Example of adding route
+        // Example of adding route to routing table
         addRoute(src, myMsg->src, cost);
     }
 

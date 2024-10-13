@@ -4,7 +4,9 @@
 
 #ifndef PACKET_H
 #define PACKET_H
-
+/////
+#define AM_PACK 6  // Example value, can be any number
+////////
 
 # include "protocol.h"
 #include "channels.h"

@@ -38,21 +38,67 @@ implementation {
         routeTableSize++;
     }
 
-    // Helper function to print the routing table
-    command void LinkStateRouting.printRouteTable() {
-        uint8_t i;
-        dbg(GENERAL_CHANNEL, "Printing routing table:\n");
-        for (i = 0; i < routeTableSize; i++) {
-            dbg(GENERAL_CHANNEL, "Route to %d via %d with cost %d\n", routeTable[i].dest, routeTable[i].nextHop, routeTable[i].cost);
+  // Helper function to print the routing table
+command void LinkStateRouting.printRouteTable() {
+    uint8_t i;
+    
+    // If there are no routes in the table
+    if (routeTableSize == 0) {
+        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
+        return;
+    }
+
+    // Printing the header for the routing table
+    dbg(GENERAL_CHANNEL, "==============================\n");
+    dbg(GENERAL_CHANNEL, "Routing Table:\n");
+    dbg(GENERAL_CHANNEL, "==============================\n");
+
+    // Iterate over each entry in the routing table and print it
+    for (i = 0; i < routeTableSize; i++) {
+        // Ensure the entry is valid (optional, depending on your implementation)
+        if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
+            dbg(GENERAL_CHANNEL, "Destination: %d, Next Hop: %d, Cost: %d\n", 
+                routeTable[i].dest, 
+                routeTable[i].nextHop, 
+                routeTable[i].cost);
+        } else {
+            dbg(GENERAL_CHANNEL, "Invalid route at index %d.\n", i);
         }
     }
 
-    // Command to start the link-state routing process
-    command error_t LinkStateRouting.start() {
-        dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
-        // Initialize NeighborDiscovery and start it
-        return call NeighborDiscovery.initialize();
+    // Ending the routing table display
+    dbg(GENERAL_CHANNEL, "==============================\n");
+}
+
+
+   // Command to start the link-state routing process
+command error_t LinkStateRouting.start() {
+    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
+
+    // Step 1: Initialize NeighborDiscovery
+    error_t result = call NeighborDiscovery.initialize();
+    if (result != SUCCESS) {
+        dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
+        return result;  // Return the error code if initialization fails
     }
+
+    // Step 2: Initialize or reset the routing table
+    routeTableSize = 0;  // Reset the size of the routing table
+    dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
+
+    // Step 3: (Optional) Start any necessary timers or processes for link-state routing
+    // Example: Start a periodic timer to broadcast link-state updates (if applicable)
+    // error_t timerResult = call Timer.startPeriodic(TIMER_PERIOD);
+    // if (timerResult != SUCCESS) {
+    //     dbg(GENERAL_CHANNEL, "Error starting link-state timer: %d\n", timerResult);
+    //     return timerResult;  // Handle timer error if needed
+    // }
+
+    // If everything is successful, return SUCCESS
+    return SUCCESS;
+}
+
+////////////////////////////////////////////////
 
     // Command to handle link-state packets
     command void LinkStateRouting.handleLS(pack* myMsg) {
@@ -97,9 +143,9 @@ implementation {
         // Perform routing logic, possibly using the routing table
     }
 
-    // Event when a neighbor is lost (used in NeighborDiscovery)
+    /*/ Event when a neighbor is lost (used in NeighborDiscovery)
     event void NeighborDiscovery.clearExpiredNeighbors() {
         dbg(GENERAL_CHANNEL, "A neighbor expired\n");
         // Handle expired neighbors in the routing logic
-    }
+    }*/
 }

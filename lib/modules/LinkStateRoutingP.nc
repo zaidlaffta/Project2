@@ -121,7 +121,31 @@ command void LinkStateRouting.start() {
         dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
         // Update routing table or remove affected routes
     }
+////////////////////////////
+command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
+    // Step 1: Debug message to indicate a new neighbor has been found
+    dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
 
+    // Step 2: Check if the neighbor already exists in the routing table
+    for (uint8_t i = 0; i < routeTableSize; i++) {
+        if (routeTable[i].dest == neighbor) {
+            dbg(GENERAL_CHANNEL, "Neighbor %d already exists in the routing table, skipping addition.\n", neighbor);
+            return;  // Neighbor already exists, exit function
+        }
+    }
+
+    // Step 3: Add the neighbor as both destination and next hop with cost 1 (direct neighbor)
+    addRoute(neighbor, neighbor, 1);  // Add route to the neighbor
+
+    // Step 4: Print the updated routing table to confirm the route was added
+    call LinkStateRouting.printRouteTable();
+}
+
+
+
+/////////////////////////////
+/*
+//////////////////////////
     // Command to handle a newly found neighbor
     command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
@@ -132,7 +156,7 @@ command void LinkStateRouting.start() {
     // Print the updated routing table to confirm the route was added
     call LinkStateRouting.printRouteTable();
 }
-////////////
+////////////*/
 
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
     // Declare the pack structure at the beginning of the function

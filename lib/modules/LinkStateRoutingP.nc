@@ -152,37 +152,16 @@ command void LinkStateRouting.start() {
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
+//////////////////
+cd ..
+rm -r Project2
+git clone https://github.com/zaidlaffta/Project2.git
+cd Project2
+make micaz sim
+python TestSim.py
 
-    command void LinkStateRouting.routePacket(pack* myMsg) {
-    dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
-
-    uint8_t i;
-    bool routeFound = FALSE;
-
-    // Search the routing table for a matching destination
-    for (i = 0; i < routeTableSize; i++) {
-        if (routeTable[i].dest == myMsg->dest) {
-            // Route found: set the next hop
-            uint16_t nextHop = routeTable[i].nextHop;
-            dbg(GENERAL_CHANNEL, "Route found! Next Hop: %d for Destination: %d\n", nextHop, myMsg->dest);
-
-            // Update the source of the packet to the current node
-            myMsg->src = TOS_NODE_ID;
-
-            // Forward the packet to the next hop
-            call Broadcast.send(myMsg, nextHop);
-            routeFound = TRUE;
-            break;
-        }
-    }
-
-    // Handle the case where no route was found
-    if (!routeFound) {
-        dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
-        // Optionally, you could add logic here to send an error message back to the sender
-    }
-}
-
+////////////////////
+   
 
    
 }

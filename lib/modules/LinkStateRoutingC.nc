@@ -1,4 +1,4 @@
-##include "../../includes/CommandMsg.h"
+#include "../../includes/CommandMsg.h"
 #include "../../includes/command.h"
 #include "../../includes/channels.h"
 

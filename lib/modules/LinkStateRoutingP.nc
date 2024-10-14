@@ -77,40 +77,7 @@ command void LinkStateRouting.printRouteTable() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
 
-///////////////////////////////
-  /*/ Helper function to print the routing table
-command void LinkStateRouting.printRouteTable() {
-    uint8_t i;
-    
-    // If there are no routes in the table
-    if (routeTableSize == 0) {
-        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
-        return;
-    }
 
-    // Printing the header for the routing table
-    dbg(GENERAL_CHANNEL, "==============================\n");
-    dbg(GENERAL_CHANNEL, "Routing Table:\n");
-    dbg(GENERAL_CHANNEL, "==============================\n");
-
-    // Iterate over each entry in the routing table and print it
-    for (i = 0; i < routeTableSize; i++) {
-        // Ensure the entry is valid (optional, depending on your implementation)
-        if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
-            dbg(GENERAL_CHANNEL, "Destination: %d, Next Hop: %d, Cost: %d\n", 
-                routeTable[i].dest, 
-                routeTable[i].nextHop, 
-                routeTable[i].cost);
-        } else {
-            dbg(GENERAL_CHANNEL, "Invalid route at index %d.\n", i);
-        }
-    }
-
-    // Ending the routing table display
-    dbg(GENERAL_CHANNEL, "==============================\n");
-}
-
-*/////////// TEST FUNCTION TO START LINKSTATEROUTING////////////
 
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
@@ -130,29 +97,7 @@ command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
 
-////////////////
-/*
-command error_t LinkStateRouting.start() {
-    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
-
-    // Step 1: Initialize NeighborDiscovery
-    call NeighborDiscovery.initialize();  // Declare 'result' correctly
-    //if (result != SUCCESS) {
-    //dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-  //  return result;  // Return the error code if initialization fails
-    
-
-    // Step 2: Initialize or reset the routing table
-   // routeTableSize = 0;  // Reset the size of the routing table
-   // dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
-
-    // If everything is successful, return SUCCESS
-    return SUCCESS;
-}
-
-*/
-////////////////////////////////////////////////
-
+/
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function
     uint16_t src;
@@ -186,7 +131,6 @@ command error_t LinkStateRouting.start() {
     // Print the updated routing table to confirm the route was added
     call LinkStateRouting.printRouteTable();
 }
-////////////
 
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
     // Declare the pack structure at the beginning of the function
@@ -209,11 +153,36 @@ command error_t LinkStateRouting.start() {
 }
 
 
-    // Command to route a packet
     command void LinkStateRouting.routePacket(pack* myMsg) {
-        dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
-        // Perform routing logic, possibly using the routing table
+    dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
+
+    uint8_t i;
+    bool routeFound = FALSE;
+
+    // Search the routing table for a matching destination
+    for (i = 0; i < routeTableSize; i++) {
+        if (routeTable[i].dest == myMsg->dest) {
+            // Route found: set the next hop
+            uint16_t nextHop = routeTable[i].nextHop;
+            dbg(GENERAL_CHANNEL, "Route found! Next Hop: %d for Destination: %d\n", nextHop, myMsg->dest);
+
+            // Update the source of the packet to the current node
+            myMsg->src = TOS_NODE_ID;
+
+            // Forward the packet to the next hop
+            call Broadcast.send(myMsg, nextHop);
+            routeFound = TRUE;
+            break;
+        }
     }
+
+    // Handle the case where no route was found
+    if (!routeFound) {
+        dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
+        // Optionally, you could add logic here to send an error message back to the sender
+    }
+}
+
 
    
 }

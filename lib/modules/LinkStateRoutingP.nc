@@ -149,7 +149,7 @@ command error_t LinkStateRouting.start() {
         // Perform routing logic, possibly using the routing table
     }
 
-     Event when a neighbor is lost (used in NeighborDiscovery)
+    // Event when a neighbor is lost (used in NeighborDiscovery)
     event void NeighborDiscovery.clearExpiredNeighbors() {
         dbg(GENERAL_CHANNEL, "A neighbor expired\n");
         // Handle expired neighbors in the routing logic

@@ -153,5 +153,5 @@ command error_t LinkStateRouting.start() {
     event void NeighborDiscovery.clearExpiredNeighbors() {
         dbg(GENERAL_CHANNEL, "A neighbor expired\n");
         // Handle expired neighbors in the routing logic
-    }
+    }//
 }

@@ -36,6 +36,8 @@ implementation {
    event void Boot.booted() {
       call AMControl.start();
       dbg(GENERAL_CHANNEL, "Booted\n");
+      dbg(GENERAL_CHANNEL, "This is LinkSate Protocol \n");
+      call LinkStateRouting.start();
 
 
    }

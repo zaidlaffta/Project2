@@ -52,7 +52,7 @@ command void LinkStateRouting.printRouteTable() {
 
     // Print the node ID
     dbg(GENERAL_CHANNEL, "==============================\n");
-    //dbg(GENERAL_CHANNEL, "Node %d Routing Table \n", TOS_NODE_ID);
+    dbg(GENERAL_CHANNEL, "Node %d Routing Table \n", TOS_NODE_ID);
     dbg(GENERAL_CHANNEL, "==============================\n");
 
     // If there are no routes in the table

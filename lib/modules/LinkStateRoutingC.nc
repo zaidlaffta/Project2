@@ -12,6 +12,7 @@ implementation {
     components LinkStateRoutingP, NeighborDiscoveryC;
     components new SimpleSendC(AM_PACK);  // Instantiate SimpleSendC with AM_PACK
 
+    
     // Provide LinkStateRouting from LinkStateRoutingP
     LinkStateRouting = LinkStateRoutingP;
 

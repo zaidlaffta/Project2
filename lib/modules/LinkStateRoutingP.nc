@@ -97,6 +97,28 @@ command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
 
+////////////////
+/*
+command error_t LinkStateRouting.start() {
+    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
+
+    // Step 1: Initialize NeighborDiscovery
+    call NeighborDiscovery.initialize();  // Declare 'result' correctly
+    //if (result != SUCCESS) {
+    //dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
+  //  return result;  // Return the error code if initialization fails
+    
+
+    // Step 2: Initialize or reset the routing table
+   // routeTableSize = 0;  // Reset the size of the routing table
+   // dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
+
+    // If everything is successful, return SUCCESS
+    return SUCCESS;
+}
+
+*/
+////////////////////////////////////////////////
 
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function
@@ -131,6 +153,7 @@ command void LinkStateRouting.start() {
     // Print the updated routing table to confirm the route was added
     call LinkStateRouting.printRouteTable();
 }
+////////////
 
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
     // Declare the pack structure at the beginning of the function
@@ -152,40 +175,12 @@ command void LinkStateRouting.start() {
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
-//////////////////
-command void LinkStateRouting.routePacket(pack* myMsg) {
-    dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
 
-    uint8_t i;
-    bool routeFound = FALSE;
-
-    // Search the routing table for a matching destination
-    for (i = 0; i < routeTableSize; i++) {
-        if (routeTable[i].dest == myMsg->dest) {
-            // Route found: set the next hop
-            uint16_t nextHop = routeTable[i].nextHop;
-            dbg(GENERAL_CHANNEL, "Route found! Next Hop: %d for Destination: %d\n", nextHop, myMsg->dest);
-
-            // Update the source of the packet to the current node
-            myMsg->src = TOS_NODE_ID;
-
-            // Forward the packet to the next hop
-            call Broadcast.send(myMsg, nextHop);
-            routeFound = TRUE;
-            break;
-        }
+    // Command to route a packet
+    command void LinkStateRouting.routePacket(pack* myMsg) {
+        dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
+        // Perform routing logic, possibly using the routing table
     }
-
-    // Handle the case where no route was found
-    if (!routeFound) {
-        dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
-        // Optionally, you could add logic here to send an error message back to the sender
-    }
-}
-
-
-////////////////////
-   
 
    
 }

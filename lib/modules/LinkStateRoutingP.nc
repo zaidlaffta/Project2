@@ -89,7 +89,7 @@ command void LinkStateRouting.printRouteTable() {
 
     // If there are no routes in the table
     if (routeTableSize == 0) {
-        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
+        dbg(GENERAL_CHANNEL, "Routing table is empty NO UPDDATE FOR THE ROUTING TABLE, KEEPING DISCOVERY ON.\n");
         dbg(GENERAL_CHANNEL, "==============================\n");
         return;
     }

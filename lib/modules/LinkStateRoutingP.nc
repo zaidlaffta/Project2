@@ -39,8 +39,40 @@ implementation {
         routeTable[routeTableSize].cost = cost;
         routeTableSize++;
     }
+///////////////////// new print table fucntion//////////////////
+// Helper function to print the node and its routing table
+command void LinkStateRouting.printRouteTable() {
+    uint8_t i;
 
-  // Helper function to print the routing table
+    // Print the node ID
+    dbg(GENERAL_CHANNEL, "==============================\n");
+    dbg(GENERAL_CHANNEL, "Node %d Routing Table:\n", TOS_NODE_ID);
+    dbg(GENERAL_CHANNEL, "==============================\n");
+
+    // If there are no routes in the table
+    if (routeTableSize == 0) {
+        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
+        return;
+    }
+
+    // Iterate over each entry in the routing table and print it
+    for (i = 0; i < routeTableSize; i++) {
+        // Ensure the entry is valid (optional, depending on your implementation)
+        if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
+            dbg(GENERAL_CHANNEL, "Route to Destination: %d via Next Hop: %d with Cost: %d\n", 
+                routeTable[i].dest, 
+                routeTable[i].nextHop, 
+                routeTable[i].cost);
+        } else {
+            dbg(GENERAL_CHANNEL, "Invalid route at index %d.\n", i);
+        }
+    }
+
+    // Ending the routing table display
+    dbg(GENERAL_CHANNEL, "==============================\n");
+}
+///////////////////////////////
+  /*/ Helper function to print the routing table
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;
     
@@ -72,7 +104,7 @@ command void LinkStateRouting.printRouteTable() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
 
-/////////// TEST FUNCTION TO START LINKSTATEROUTING////////////
+*/////////// TEST FUNCTION TO START LINKSTATEROUTING////////////
 
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");

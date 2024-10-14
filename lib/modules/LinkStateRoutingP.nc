@@ -155,11 +155,45 @@ command void LinkStateRouting.start() {
 }
 
 
-    // Command to route a packet
     command void LinkStateRouting.routePacket(pack* myMsg) {
-        dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
-        // Perform routing logic, possibly using the routing table
+    dbg(GENERAL_CHANNEL, "Routing packet to destination: %d from source: %d\n", myMsg->dest, myMsg->src);
+
+    // Check the packet's TTL (Time to Live)
+    if (myMsg->TTL == 0) {
+        dbg(GENERAL_CHANNEL, "Packet TTL expired. Dropping packet to destination: %d\n", myMsg->dest);
+        return;  // Drop the packet if TTL is 0
     }
+
+    // Decrement the TTL
+    myMsg->TTL--;
+
+    uint8_t i;
+    bool routeFound = FALSE;
+
+    // Search the routing table for a matching destination
+    for (i = 0; i < routeTableSize; i++) {
+        if (routeTable[i].dest == myMsg->dest) {
+            // Route found: use the next hop from the routing table
+            uint16_t nextHop = routeTable[i].nextHop;
+            dbg(GENERAL_CHANNEL, "Route found! Next Hop: %d for Destination: %d with Cost: %d\n", 
+                nextHop, myMsg->dest, routeTable[i].cost);
+
+            // Update the source of the packet to the current node
+            myMsg->src = TOS_NODE_ID;
+
+            // Forward the packet to the next hop using Broadcast.send()
+            call Broadcast.send(myMsg, nextHop);
+            routeFound = TRUE;
+            break;
+        }
+    }
+
+    // If no route is found, drop the packet
+    if (!routeFound) {
+        dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
+    }
+}
+
 
    
 }

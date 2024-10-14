@@ -154,7 +154,11 @@ command void LinkStateRouting.start() {
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
-
+// Command to route a packet
+    command void LinkStateRouting.routePacket(pack* myMsg) {
+        dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
+        // Perform routing logic, possibly using the routing table
+    }
 /*
 /////////////////////////// extra function ////////////////////////////
 

@@ -56,7 +56,7 @@ implementation {
     NeighborDiscoveryP.Timer -> Timer;
 
     components new SimpleSendC(AM_PACK);
-    NeighborDiscoveryP.Sender -> SimpleSendC;
+    NeighborDiscoveryP.Broadcast -> SimpleSendC;
 
     components new HashmapC(uint32_t, 20);
     NeighborDiscoveryP.NeighborTable -> HashmapC;

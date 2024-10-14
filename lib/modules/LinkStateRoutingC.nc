@@ -9,15 +9,17 @@ configuration LinkStateRoutingC {
 }
 
 implementation {
-    components LinkStateRoutingP, NeighborDiscoveryC;  // Ensure NeighborDiscoveryC is instantiated
-    components new SimpleSendC(AM_PACK);  // Instantiate SimpleSendC with AM_PACK
-    LinkStateRoutingP.Broadcast -> SimpleSendC;
-    // Provide LinkStateRouting from LinkStateRoutingP
+    components LinkStateRoutingP;
     LinkStateRouting = LinkStateRoutingP;
 
-    // Connect LinkStateRoutingP's NeighborDiscovery interface to NeighborDiscoveryC's NeighborDiscovery interface
-    LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC.NeighborDiscovery;
+    
+    
+    
+    components NeighborDiscoveryC;
+    LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;
 
-    // Connect the Broadcast (SimpleSend) interface from LinkStateRoutingP to SimpleSendC
+    components new SimpleSendC(AM_PACK);  // Instantiate SimpleSendC with AM_PACK
+    LinkStateRoutingP.Broadcast -> SimpleSendC;
+
     
 }

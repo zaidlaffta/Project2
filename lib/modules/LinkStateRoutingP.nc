@@ -49,10 +49,10 @@ void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
 // Helper function to print the node and its routing table
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;
-    dbg(GENERAL_CHANNEL, "route is printing \n");
+
     // Print the node ID
     dbg(GENERAL_CHANNEL, "==============================\n");
-    dbg(GENERAL_CHANNEL, "Node %d Routing Table:\n", TOS_NODE_ID);
+    dbg(GENERAL_CHANNEL, "Node %d Routing Table (Neighbors as Routes):\n", TOS_NODE_ID);
     dbg(GENERAL_CHANNEL, "==============================\n");
 
     // If there are no routes in the table
@@ -63,7 +63,6 @@ command void LinkStateRouting.printRouteTable() {
 
     // Iterate over each entry in the routing table and print it
     for (i = 0; i < routeTableSize; i++) {
-        // Ensure the entry is valid (optional, depending on your implementation)
         if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
             dbg(GENERAL_CHANNEL, "Route to Destination: %d via Next Hop: %d with Cost: %d\n", 
                 routeTable[i].dest, 
@@ -74,9 +73,10 @@ command void LinkStateRouting.printRouteTable() {
         }
     }
 
-    // Ending the routing table display
+    // End of routing table display
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
+
 ///////////////////////////////
   /*/ Helper function to print the routing table
 command void LinkStateRouting.printRouteTable() {

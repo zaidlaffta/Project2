@@ -30,15 +30,21 @@ implementation {
     // Routing table
     routeTableEntry routeTable[10];  // Can hold up to 10 entries
     uint8_t routeTableSize = 0;
-
-    // Helper function to add a route to the table
-    void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
-        dbg(GENERAL_CHANNEL, "Adding route: Destination = %d, NextHop = %d, Cost = %d\n", dest, nextHop, cost);
-        routeTable[routeTableSize].dest = dest;
-        routeTable[routeTableSize].nextHop = nextHop;
-        routeTable[routeTableSize].cost = cost;
-        routeTableSize++;
+void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
+    // Check if the routing table is full
+    if (routeTableSize >= 10) {
+        dbg(GENERAL_CHANNEL, "Routing table full, cannot add more routes.\n");
+        return;
     }
+
+    dbg(GENERAL_CHANNEL, "Adding route: Destination = %d, NextHop = %d, Cost = %d\n", dest, nextHop, cost);
+    
+    routeTable[routeTableSize].dest = dest;
+    routeTable[routeTableSize].nextHop = nextHop;
+    routeTable[routeTableSize].cost = cost;
+    routeTableSize++;
+}
+
 ///////////////////// new print table fucntion//////////////////
 // Helper function to print the node and its routing table
 command void LinkStateRouting.printRouteTable() {

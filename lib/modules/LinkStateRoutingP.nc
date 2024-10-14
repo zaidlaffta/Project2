@@ -77,9 +77,9 @@ command error_t LinkStateRouting.start() {
 
     // Step 1: Initialize NeighborDiscovery
     call NeighborDiscovery.initialize();  // Declare 'result' correctly
-    if (result != SUCCESS) {
+    //if (result != SUCCESS) {
     dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-    return result;  // Return the error code if initialization fails
+  //  return result;  // Return the error code if initialization fails
     
 
     // Step 2: Initialize or reset the routing table

@@ -145,22 +145,6 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
 
 
 
-
-/////////////////////////////
-/*
-//////////////////////////
-    // Command to handle a newly found neighbor
-    command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
-    dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
-
-    // Add the neighbor to the routing table with the neighbor as both destination and next hop
-    addRoute(neighbor, neighbor, 1);  // Assuming cost is 1 for direct neighbors
-
-    // Print the updated routing table to confirm the route was added
-    call LinkStateRouting.printRouteTable();
-}
-////////////*/
-
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
     // Declare the pack structure at the beginning of the function
     pack myMsg;

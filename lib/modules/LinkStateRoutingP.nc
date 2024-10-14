@@ -121,13 +121,15 @@ command void LinkStateRouting.start() {
         dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
         // Update routing table or remove affected routes
     }
-////////////////////////////
+/////////////Handle the neighbor when found ///////////////
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
+    uint8_t i;  // Move variable declaration to the top
+
     // Step 1: Debug message to indicate a new neighbor has been found
     dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
 
     // Step 2: Check if the neighbor already exists in the routing table
-    for (uint8_t i = 0; i < routeTableSize; i++) {
+    for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == neighbor) {
             dbg(GENERAL_CHANNEL, "Neighbor %d already exists in the routing table, skipping addition.\n", neighbor);
             return;  // Neighbor already exists, exit function
@@ -140,6 +142,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     // Step 4: Print the updated routing table to confirm the route was added
     call LinkStateRouting.printRouteTable();
 }
+
 
 
 

@@ -24,7 +24,7 @@ implementation{
    components new PoolC(sendInfo, 20);
    components new QueueC(sendInfo*, 20);
    ////////////
-   LinkStateRoutingP.Broadcast -> SimpleSendC;
+   
 
 ///////////////////
    SimpleSendP.Pool -> PoolC;

@@ -8,6 +8,6 @@ interface LinkStateRouting {
     command void routePacket(pack* myMsg);
     command void handleLS(pack* myMsg);
     command void handleNeighborLost(uint16_t lostNeighbor);
-    command void handleNeighborFound();
+    command void handleNeighborFound(uint16_t neighbor);
     command void printRouteTable();
 }

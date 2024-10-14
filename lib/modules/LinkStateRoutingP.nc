@@ -4,6 +4,7 @@
 // Zaid Laffta
 
 #include <Timer.h>
+#include "message.h"
 #include "../../includes/channels.h"
 #include "../../includes/packet.h"
 #include "../../includes/protocol.h"
@@ -71,33 +72,23 @@ command void LinkStateRouting.printRouteTable() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
 
-
-   // Command to start the link-state routing process
 command error_t LinkStateRouting.start() {
-
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
-   // bool result;
+
     // Step 1: Initialize NeighborDiscovery
-    call NeighborDiscovery.initialize();
-    //if (result != SUCCESS) {
+    error_t result = call NeighborDiscovery.initialize();  // Declare 'result' correctly
+    if (result != SUCCESS) {
         dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-      //  return result;  // Return the error code if initialization fails
+        return result;  // Return the error code if initialization fails
     }
 
     // Step 2: Initialize or reset the routing table
     routeTableSize = 0;  // Reset the size of the routing table
-    //dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
-
-    // Step 3: (Optional) Start any necessary timers or processes for link-state routing
-    // Example: Start a periodic timer to broadcast link-state updates (if applicable)
-    // error_t timerResult = call Timer.startPeriodic(TIMER_PERIOD);
-    // if (timerResult != SUCCESS) {
-    //     dbg(GENERAL_CHANNEL, "Error starting link-state timer: %d\n", timerResult);
-    //     return timerResult;  // Handle timer error if needed
-    // }
+    dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
 
     // If everything is successful, return SUCCESS
-    //return SUCCESS;
+    return SUCCESS;
+}
 
 
 ////////////////////////////////////////////////

@@ -58,12 +58,12 @@ implementation {
     components new SimpleSendC(AM_PACK);
     NeighborDiscoveryP.Broadcast -> SimpleSendC;
 
-    components new HashmapC(uint32_t, 20);
-    NeighborDiscoveryP.NeighborTable -> HashmapC;
+    components new HashmapC(uint32_t, 22);
+    NeighborDiscoveryP.NeighborCache -> HashmapC;
 
     //components DistanceVectorRoutingC;
     //NeighborDiscoveryP.DistanceVectorRouting -> DistanceVectorRoutingC;
 
-    components LinkStateRoutingC;                               //Added for Project 4 impletation
+    components LinkStateRoutingC;                              
     NeighborDiscoveryP.LinkStateRouting -> LinkStateRoutingC;
 }

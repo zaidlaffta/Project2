@@ -16,6 +16,8 @@ configuration NodeC {
 implementation {
     components MainC;
     components Node;
+    components LinkStateRoutingC;
+
     components new AMReceiverC(AM_PACK) as GeneralReceive;
 
     Node -> MainC.Boot;

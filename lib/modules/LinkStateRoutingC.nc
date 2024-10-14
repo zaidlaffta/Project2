@@ -15,9 +15,9 @@ implementation {
     // Provide LinkStateRouting from LinkStateRoutingP
     LinkStateRouting = LinkStateRoutingP;
 
-    // Connect the NeighborDiscovery interface from LinkStateRoutingP to NeighborDiscoveryC
+    // Connect LinkStateRoutingP's NeighborDiscovery interface to NeighborDiscoveryC
     LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;
 
-    // Connect the Broadcast (SimpleSend) interface from LinkStateRoutingP to SimpleSendC
+    // Connect LinkStateRoutingP's Broadcast interface to SimpleSendC
     LinkStateRoutingP.Broadcast -> SimpleSendC;
 }

@@ -64,7 +64,8 @@ command void LinkStateRouting.printRouteTable() {
     // Iterate over each entry in the routing table and print it
     for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
-            dbg(GENERAL_CHANNEL, "Zaid Route to Destination: %d via Next Hop: %d with Cost: %d\n", 
+            dbg(GENERAL_CHANNEL, "TESTING rout for node %d ", TOS_NODE_ID);
+            dbg(GENERAL_CHANNEL, "Route to Destination: %d via Next Hop: %d with Cost: %d\n"); 
                 routeTable[i].dest, 
                 routeTable[i].nextHop, 
                 routeTable[i].cost);

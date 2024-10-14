@@ -30,15 +30,15 @@ implementation {
     components CommandHandlerC;
     Node.CommandHandler -> CommandHandlerC;
     // add components for FloodingC
-     components FloodingC;
+    components FloodingC;
     Node.Flooding -> FloodingC;
     // Adding neighbor discovery as component
     components NeighborDiscoveryC;
     Node.NeighborDiscovery -> NeighborDiscoveryC;
 
     // Add LinkStateRouting component
-   components LinkStateRoutingC;
-   Node.LinkStateRouting -> LinkStateRoutingC;
+    components LinkStateRoutingC;
+    Node.LinkStateRouting -> LinkStateRoutingC;
 
     // Connecting LinkStateRouting to NeighborDiscovery and SimpleSend
    // LinkStateRoutingC.NeighborDiscovery -> NeighborDiscoveryC;

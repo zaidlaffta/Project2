@@ -19,6 +19,7 @@ module Node {
    //connecting neighbor discovery module
    uses interface NeighborDiscovery as NeighborDiscovery;
    //existing code given by the instructor
+   uses interface LinkStateRouting as LinkStateRouting;
    uses interface Boot;
    uses interface SplitControl as AMControl;
    uses interface Receive;

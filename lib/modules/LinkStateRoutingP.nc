@@ -168,11 +168,11 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
     // Decrement the TTL
     myMsg->TTL--;
 
-    uint8_t i;
+   // uint8_t i;
     bool routeFound = FALSE;
 
     // Search the routing table for a matching destination
-    for (i = 0; i < routeTableSize; i++) {
+    for (uint16_t i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == myMsg->dest) {
             // Route found: use the next hop from the routing table
             uint16_t nextHop = routeTable[i].nextHop;

@@ -167,7 +167,7 @@ command void LinkStateRouting.start() {
     // Decrement the TTL
     myMsg->TTL--;
 
-    uint8_t i;
+    uint8_t i = 0;
     bool routeFound = FALSE;
 
     // Search the routing table for a matching destination

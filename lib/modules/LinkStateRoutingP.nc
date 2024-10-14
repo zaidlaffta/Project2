@@ -71,20 +71,20 @@ command void LinkStateRouting.printRouteTable() {
     // Ending the routing table display
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
-
+////////////////
 command error_t LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
 
     // Step 1: Initialize NeighborDiscovery
-    error_t result = call NeighborDiscovery.initialize();  // Declare 'result' correctly
-    if (result != SUCCESS) {
+    call NeighborDiscovery.initialize();  // Declare 'result' correctly
+    //if (result != SUCCESS) {
         dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-        return result;  // Return the error code if initialization fails
-    }
+      //  return result;  // Return the error code if initialization fails
+    
 
     // Step 2: Initialize or reset the routing table
-    routeTableSize = 0;  // Reset the size of the routing table
-    dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
+   // routeTableSize = 0;  // Reset the size of the routing table
+   // dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
 
     // If everything is successful, return SUCCESS
     return SUCCESS;
@@ -139,7 +139,7 @@ command error_t LinkStateRouting.start() {
     memcpy(myMsg.payload, payload, PACKET_MAX_PAYLOAD_SIZE);
 
     // Call the Broadcast.send function to send the message (use &myMsg to pass a pointer)
-    call Broadcast.send(&myMsg, AM_BROADCAST_ADDR);
+    call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
 

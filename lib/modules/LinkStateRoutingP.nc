@@ -156,6 +156,8 @@ command void LinkStateRouting.start() {
 
 
     command void LinkStateRouting.routePacket(pack* myMsg) {
+        uint16_t i;
+    bool routeFound = FALSE;
     dbg(GENERAL_CHANNEL, "Routing packet to destination: %d from source: %d\n", myMsg->dest, myMsg->src);
 
     // Check the packet's TTL (Time to Live)
@@ -168,10 +170,9 @@ command void LinkStateRouting.start() {
     myMsg->TTL--;
 
     
-    bool routeFound = FALSE;
 
     // Search the routing table for a matching destination
-    for (uint16_t i = 0; i < routeTableSize; i++) {
+    for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == myMsg->dest) {
             // Route found: use the next hop from the routing table
             uint16_t nextHop = routeTable[i].nextHop;

@@ -43,7 +43,7 @@ implementation {
 // Helper function to print the node and its routing table
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;
-
+    dbg(GENERAL_CHANNEL, "route is printing \n");
     // Print the node ID
     dbg(GENERAL_CHANNEL, "==============================\n");
     dbg(GENERAL_CHANNEL, "Node %d Routing Table:\n", TOS_NODE_ID);

@@ -44,7 +44,7 @@ void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
     routeTable[routeTableSize].cost = cost;
     routeTableSize++;
 }
-
+/*
 ///////////////////// new print table fucntion//////////////////
 // Helper function to print the node and its routing table
 command void LinkStateRouting.printRouteTable() {
@@ -53,7 +53,7 @@ command void LinkStateRouting.printRouteTable() {
     // Print the node ID
     dbg(GENERAL_CHANNEL, "==============================\n");
     dbg(GENERAL_CHANNEL, "Node %d Routing Table \n", TOS_NODE_ID);
-    dbg(GENERAL_CHANNEL, "==============================\n");
+    //dbg(GENERAL_CHANNEL, "==============================\n");
 
     // If there are no routes in the table
     if (routeTableSize == 0) {
@@ -77,7 +77,43 @@ command void LinkStateRouting.printRouteTable() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
 
+*/
+////////TEST print function //////////
+command void LinkStateRouting.printRouteTable() {
+    uint8_t i;
 
+    // Print the node ID
+    dbg(GENERAL_CHANNEL, "==============================\n");
+    dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", TOS_NODE_ID);
+    dbg(GENERAL_CHANNEL, "------------------------------\n");
+
+    // If there are no routes in the table
+    if (routeTableSize == 0) {
+        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
+        dbg(GENERAL_CHANNEL, "==============================\n");
+        return;
+    }
+
+    // Print a header for the routing table
+    dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
+    dbg(GENERAL_CHANNEL, "------------------------------\n");
+
+    // Iterate over each entry in the routing table and print it
+    for (i = 0; i < routeTableSize; i++) {
+        if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
+            dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n", 
+                routeTable[i].dest, 
+                routeTable[i].nextHop, 
+                routeTable[i].cost);
+        } else {
+            dbg(GENERAL_CHANNEL, "Invalid route at index %d.\n", i);
+        }
+    }
+
+    // End of routing table display
+    dbg(GENERAL_CHANNEL, "==============================\n");
+}
+////////////// test print function ////////
 
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");

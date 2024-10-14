@@ -31,4 +31,9 @@ implementation {
     // HashmapC is a storage component for neighbor information (up to 20 neighbors)
     components new HashmapC(uint32_t, 22);
     NeighborDiscoveryP.NeighborCache -> HashmapC;
+
+    ///Add as prat of Project 2
+    components LinkStateRoutingC;                             
+    NeighborDiscoveryP.LinkStateRouting -> LinkStateRoutingC;
+    
 }

@@ -12,14 +12,13 @@ implementation {
     components LinkStateRoutingP;
     LinkStateRouting = LinkStateRoutingP;
 
-    this is fuckeck
-    
-    
     components NeighborDiscoveryC;
     LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;
 
     components new SimpleSendC(AM_PACK);  // Instantiate SimpleSendC with AM_PACK
     LinkStateRoutingP.Broadcast -> SimpleSendC;
-
+    /////
+    components LinkStateRoutingC;                             
+    NeighborDiscoveryP.LinkStateRouting -> LinkStateRoutingC;
     
 }

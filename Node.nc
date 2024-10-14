@@ -122,6 +122,7 @@ implementation {
    event void CommandHandler.printRouteTable() {}
 
    event void CommandHandler.printLinkState() {
+      dbg(GENERAL_CHANNEL, "This is print routing tabel22222222 \n");
       call LinkStateRouting.start();
       call LinkStateRouting.printRouteTable();
    }

@@ -154,6 +154,8 @@ command void LinkStateRouting.start() {
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
+
+/*
 /////////////////////////// extra function ////////////////////////////
 
 command void LinkStateRouting.routePacket(pack* myMsg) {
@@ -205,7 +207,7 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
     if (!routeFound) {
         dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
     }
-}
+} */
 
 
 

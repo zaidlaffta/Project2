@@ -1,4 +1,4 @@
-#include "../../includes/CommandMsg.h"
+##include "../../includes/CommandMsg.h"
 #include "../../includes/command.h"
 #include "../../includes/channels.h"
 
@@ -12,13 +12,12 @@ implementation {
     components LinkStateRoutingP, NeighborDiscoveryC;
     components new SimpleSendC(AM_PACK);  // Instantiate SimpleSendC with AM_PACK
 
-    
     // Provide LinkStateRouting from LinkStateRoutingP
     LinkStateRouting = LinkStateRoutingP;
 
-    // Connect LinkStateRoutingP's NeighborDiscovery interface to NeighborDiscoveryC
-    LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;
+    // Connect LinkStateRoutingP's NeighborDiscovery interface to NeighborDiscoveryC's NeighborDiscovery interface
+    LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC.NeighborDiscovery;
 
-    // Connect LinkStateRoutingP's Broadcast interface to SimpleSendC
-    LinkStateRoutingP.Broadcast -> SimpleSendC;
+    // Connect the Broadcast (SimpleSend) interface from LinkStateRoutingP to SimpleSendC's Send interface
+    LinkStateRoutingP.Broadcast -> SimpleSendC.Send;
 }

@@ -45,4 +45,6 @@ implementation {
     // Connecting LinkStateRouting to NeighborDiscovery and SimpleSend
     LinkStateRoutingC.NeighborDiscovery -> NeighborDiscoveryC;
     LinkStateRoutingC.Broadcast -> SimpleSendC;
+    LinkStateRoutingC.Flooding ->FloodingC;
+    LinkStateRoutingC.SimpleSend -> SimpleSendC;
 }

@@ -34,8 +34,7 @@ components LinkStateRoutingP;
     components NeighborDiscoveryC;
     LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;    
 
-    components FloodingC;
-    LinkStateRoutingP.Flooding -> FloodingC;
+
 
     
 

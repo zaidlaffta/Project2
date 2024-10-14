@@ -24,6 +24,7 @@ module NeighborDiscoveryP {
     uses interface Hashmap<uint32_t> as NeighborCache;
     // Uses the SimpleSend interface for sending broadcast messages
     uses interface SimpleSend as Broadcast;
+    uses interface LinkStateRouting;
 }
 
 implementation {

@@ -97,28 +97,7 @@ command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
 
-////////////////
-/*
-command error_t LinkStateRouting.start() {
-    dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
 
-    // Step 1: Initialize NeighborDiscovery
-    call NeighborDiscovery.initialize();  // Declare 'result' correctly
-    //if (result != SUCCESS) {
-    //dbg(GENERAL_CHANNEL, "Error initializing NeighborDiscovery: %d\n", result);
-  //  return result;  // Return the error code if initialization fails
-    
-
-    // Step 2: Initialize or reset the routing table
-   // routeTableSize = 0;  // Reset the size of the routing table
-   // dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
-
-    // If everything is successful, return SUCCESS
-    return SUCCESS;
-}
-
-*/
-////////////////////////////////////////////////
 
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function

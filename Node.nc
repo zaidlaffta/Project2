@@ -86,8 +86,8 @@ implementation {
             call NeighborDiscovery.processDiscovery(myMsg); // Changed to processDiscovery
             Neighbor_protocol++;
             //dbg(GENERAL_CHANNEL, "Number of times Neighbor Discovery Called: %d\n", Neighbor_protocol);
-            call NeighborDiscovery.displayNeighbors();
-            dbg(GENERAL_CHANNEL, "******************************************\n");
+           // call NeighborDiscovery.displayNeighbors();
+           // dbg(GENERAL_CHANNEL, "******************************************\n");
          }
          else {
             //dbg(GENERAL_CHANNEL, "Flooding function called here\n");
@@ -98,9 +98,9 @@ implementation {
          return msg;
       }
       // Debug statement for incorrect or corrupted packets
-      dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
-      dbg(GENERAL_CHANNEL, "Packet Received\n");
-      dbg(GENERAL_CHANNEL, "This is a corrupted packet\n");
+      //dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
+      //dbg(GENERAL_CHANNEL, "Packet Received\n");
+      //dbg(GENERAL_CHANNEL, "This is a corrupted packet\n");
       return msg;
    }
    

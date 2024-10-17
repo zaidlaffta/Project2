@@ -18,7 +18,7 @@ generic module SimpleSendP(){
    uses interface Pool<sendInfo>;
 
    uses interface Timer<TMilli> as sendTimer;
-
+   uses interface LinkStateRouting;
    uses interface Packet;
    uses interface AMPacket;
    uses interface AMSend;

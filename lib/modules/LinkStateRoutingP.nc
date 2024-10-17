@@ -113,7 +113,6 @@ command void LinkStateRouting.printRouteTable() {
     // End of routing table display
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
-////////////// test print function ////////
 
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
@@ -124,30 +123,22 @@ command void LinkStateRouting.start() {
 
     // Optional: Add a check for result if needed, but no error handling
     dbg(GENERAL_CHANNEL, "NeighborDiscovery initialized successfully\n");
-
-    // Step 2: Initialize or reset the routing table
     routeTableSize = 0;  // Reset the size of the routing table
     dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
 
-    // Proceed with any additional setup as needed
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
-
 
 
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function
     uint16_t src;
     uint16_t cost;
-
-    // Debug message to indicate the function is handling a Link State packet
     dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
 
     // Assign the source node from the message and the cost (using TTL as cost)
     src = myMsg->src;
     cost = myMsg->TTL;  // Assuming TTL represents the cost
-
-    // Add the route to the routing table using the addRoute function
     addRoute(src, myMsg->src, cost);
 }
 
@@ -182,30 +173,20 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
 
 
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
-    // Declare the pack structure at the beginning of the function
     pack myMsg;
-
-    // Debug message to indicate the destination of the ping
     dbg(GENERAL_CHANNEL, "Pinging destination: %d\n", destination);
 
-    // Set the fields of the packet (myMsg)
     myMsg.src = TOS_NODE_ID;
     myMsg.dest = destination;
     myMsg.TTL = 1;
     myMsg.protocol = PROTOCOL_PING;
-
-    // Copy the payload into the packet's payload field
     memcpy(myMsg.payload, payload, PACKET_MAX_PAYLOAD_SIZE);
 
     // Call the Broadcast.send function to send the message (use &myMsg to pass a pointer)
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
-// Command to route a packet
-    command void LinkStateRouting.routePacket(pack* myMsg) {
-        dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
-        // Perform routing logic, possibly using the routing table
-    }
+
 /*
 /////////////////////////// extra function ////////////////////////////
 

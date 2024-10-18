@@ -16,7 +16,7 @@ module CommandHandlerP{
    uses interface Pool<message_t>;
    uses interface Queue<message_t*>;
    uses interface Packet;
-   uses interface LinkStateRouting;
+   //uses interface LinkStateRouting;
 }
 
 implementation{

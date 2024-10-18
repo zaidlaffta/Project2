@@ -257,14 +257,20 @@ command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 
     // Simulating all nodes; adjust the range for the number of nodes in your network
-    uint16_t allNodes[] = {1, 2, 3, 4, 5};  // Assuming 5 nodes for this example
-    uint8_t i;
+    // Declare allNodes outside the function, typically at the beginning of the implementation block
+static uint16_t allNodes[] = {1, 2, 3, 4, 5};  // Adjust for the actual number of nodes
+
+command void LinkStateRouting.printAllRoutingTables() {
+    dbg(GENERAL_CHANNEL, "==============================\n");
+    dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
+    dbg(GENERAL_CHANNEL, "==============================\n");
+
+    uint8_t i;  // Loop variable
 
     // Iterate over each node in the network
     for (i = 0; i < sizeof(allNodes) / sizeof(allNodes[0]); i++) {
         uint16_t nodeId = allNodes[i];
 
-        // Simulate switching to the context of each node (if necessary)
         dbg(GENERAL_CHANNEL, "==============================\n");
         dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", nodeId);
         dbg(GENERAL_CHANNEL, "------------------------------\n");
@@ -273,11 +279,10 @@ command void LinkStateRouting.printAllRoutingTables() {
         if (routeTableSize == 0) {
             dbg(GENERAL_CHANNEL, "No routes in the table for Node %d\n", nodeId);
         } else {
-            // Print routing table header
             dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
             dbg(GENERAL_CHANNEL, "------------------------------\n");
 
-            // Iterate over each route in the table and print the details
+            // Iterate over each route in the table
             for (uint8_t j = 0; j < routeTableSize; j++) {
                 if (routeTable[j].dest != 0 && routeTable[j].cost > 0) {
                     dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n", 
@@ -293,6 +298,7 @@ command void LinkStateRouting.printAllRoutingTables() {
 
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
+
 
 
    

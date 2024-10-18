@@ -80,6 +80,10 @@ implementation {
             dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
+
+            LinkStateRouting.printAllRoutingTables()
+
+
          }
          else if (myMsg->dest == 0) {
             //dbg(GENERAL_CHANNEL, "Neighbor Discovery called here\n");

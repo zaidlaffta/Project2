@@ -106,7 +106,9 @@ implementation {
       //dbg(GENERAL_CHANNEL, "This is a corrupted packet\n");
       return msg;
    }
-   
+   ////////
+   call LinkStateRouting.printAllRoutingTables();
+   ////////////
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload) {
       dbg(GENERAL_CHANNEL, "PING EVENT\n");
       makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);

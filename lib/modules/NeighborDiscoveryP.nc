@@ -37,7 +37,7 @@ implementation {
     command error_t NeighborDiscovery.initialize() {
         // Start a periodic timer with a random interval
         call Timer.startPeriodic(500 + (uint16_t)(call Random.rand16() % 500));
-        //dbg(GENERAL_CHANNEL, "Neighbor Discovery just Starte \n");
+        ////dbg(GENERAL_CHANNEL, "Neighbor Discovery just Starte \n");
         return SUCCESS;
     }
 
@@ -48,7 +48,7 @@ implementation {
         // Iterate over the neighbors and remove those with TTL = 0
         for(i = 0; i < call NeighborCache.size(); i++) {
             if (call NeighborCache.get(neighbors[i]) == 0) {
-                //dbg(NEIGHBOR_CHANNEL, "Removing expired neighbor: %d\n", neighbors[i]);
+                ////dbg(NEIGHBOR_CHANNEL, "Removing expired neighbor: %d\n", neighbors[i]);
                 call NeighborCache.remove(neighbors[i]);
             }
         }
@@ -56,17 +56,17 @@ implementation {
 
     // Processes incoming discovery messages (PING/PINGREPLY)
     command void NeighborDiscovery.processDiscovery(pack* message) {
-        //dbg(GENERAL_CHANNEL, "Processing Neighbor Discovery \n");
+        ////dbg(GENERAL_CHANNEL, "Processing Neighbor Discovery \n");
         // If the message is a PING and TTL > 0, decrement TTL and send PINGREPLY
         if(message->TTL > 0 && message->protocol == PROTOCOL_PING) {
-            //dbg(GENERAL_CHANNEL, "PING received, updating message\n");
+            ////dbg(GENERAL_CHANNEL, "PING received, updating message\n");
             message->TTL--;
             message->src = TOS_NODE_ID;
             message->protocol = PROTOCOL_PINGREPLY;
             call Broadcast.send(*message, AM_BROADCAST_ADDR);
         // If a PINGREPLY is received and the destination is the node itself, confirm the neighbor
         } else if (message->protocol == PROTOCOL_PINGREPLY && message->dest == 0) {
-            //dbg(GENERAL_CHANNEL, "Ping reply got received, confirmed neighbor %d\n", message->src);
+            ////dbg(GENERAL_CHANNEL, "Ping reply got received, confirmed neighbor %d\n", message->src);
             // Add or update the neighbor in the NeighborCache with a fresh TTL
             //for the second project, this statement needed
             // Add the neighbor to LinkStateRouting222222222222222222222222222222222
@@ -82,19 +82,19 @@ implementation {
         uint32_t* neighbors = call NeighborCache.getKeys();
         uint8_t dummyPayload = 0;
         uint16_t i = 0;
-        ////dbg(GENERAL_CHANNEL, "Timer fired event\n");
+        //////dbg(GENERAL_CHANNEL, "Timer fired event\n");
         // Loop through neighbors and decrement their TTL or remove if expired
         for (i = 0; i < call NeighborCache.size(); i++) {
             if (neighbors[i] == 0) continue;
             if (call NeighborCache.get(neighbors[i]) == 0) {
-                //dbg(GENERAL_CHANNEL, "Neighbor %d expired, removing\n", neighbors[i]);
+                ////dbg(GENERAL_CHANNEL, "Neighbor %d expired, removing\n", neighbors[i]);
                 call NeighborDiscovery.clearExpiredNeighbors();
             } else {
                 call NeighborCache.insert(neighbors[i], call NeighborCache.get(neighbors[i]) - 1);
             }
         }
         // Send a periodic PING broadcast to discover new neighbors
-        //dbg(GENERAL_CHANNEL, "Sending periodic broadcast to discover new neighbor\n");
+        ////dbg(GENERAL_CHANNEL, "Sending periodic broadcast to discover new neighbor\n");
         makePack(&MessageToSend, TOS_NODE_ID, 0, 1, PROTOCOL_PING, 0, &dummyPayload, PACKET_MAX_PAYLOAD_SIZE);
         call Broadcast.send(MessageToSend, AM_BROADCAST_ADDR);
     }
@@ -104,10 +104,10 @@ implementation {
         // Check if the neighbor exists in the cache
         if (call NeighborCache.contains(neighbor)) {
             uint16_t ttl = call NeighborCache.get(neighbor);
-            //dbg(GENERAL_CHANNEL, "TTL for neighbor %d is %d\n", neighbor, ttl);
+            ////dbg(GENERAL_CHANNEL, "TTL for neighbor %d is %d\n", neighbor, ttl);
             return ttl;
         } else {
-            //dbg(NEIGHBOR_CHANNEL, "Neighbor %d not found\n", neighbor);
+            ////dbg(NEIGHBOR_CHANNEL, "Neighbor %d not found\n", neighbor);
             return 0;
         }
     }
@@ -124,7 +124,7 @@ implementation {
 
     // Helper function to prepare a packet with the specified parameters
     void makePack(pack *pkt, uint16_t src, uint16_t dest, uint16_t ttl, uint16_t protocol, uint16_t seq, uint8_t* payload, uint8_t len) {
-        //dbg(NEIGHBOR_CHANNEL, "Preparing packet\n");
+        ////dbg(NEIGHBOR_CHANNEL, "Preparing packet\n");
         pkt->src = src;
         pkt->dest = dest;
         pkt->TTL = ttl;
@@ -136,12 +136,12 @@ implementation {
     command void NeighborDiscovery.displayNeighbors() {
         uint16_t i = 0;
         uint32_t* neighbors = call NeighborCache.getKeys();
-        //dbg(NEIGHBOR_CHANNEL, "Displaying neighbor list\n");
-         //dbg(GENERAL_CHANNEL, "Displaying neighbor list\n");
+        ////dbg(NEIGHBOR_CHANNEL, "Displaying neighbor list\n");
+         ////dbg(GENERAL_CHANNEL, "Displaying neighbor list\n");
         // Iterate over the neighbors and print each one
         for(i = 0; i < call NeighborCache.size(); i++) {
             if(neighbors[i] != 0) {
-                //dbg(GENERAL_CHANNEL, "\tNeighbor: %d\n", neighbors[i]);
+                ////dbg(GENERAL_CHANNEL, "\tNeighbor: %d\n", neighbors[i]);
             }
         }
     }

@@ -256,9 +256,8 @@ command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
     dbg(GENERAL_CHANNEL, "==============================\n");
 
-    // Simulating all nodes; adjust the range for the number of nodes in your network
-    // Declare allNodes outside the function, typically at the beginning of the implementation block
-static uint16_t allNodes[] = {1, 2, 3, 4, 5};  // Adjust for the actual number of nodes
+ 
+uint16_t allNodes[] = {1, 2, 3, 4, 5};  
 
 command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");

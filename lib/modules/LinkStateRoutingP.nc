@@ -254,6 +254,7 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable for iterating over nodes
     uint8_t j;
+    uint16_t nodeId;
 
     // Print header information
     dbg(GENERAL_CHANNEL, "==============================\n");

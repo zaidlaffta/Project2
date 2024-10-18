@@ -252,13 +252,13 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;
     uint8_t j;
-    uint16_t allNodes[];
+    uint16_t allNodes[22];
     dbg(GENERAL_CHANNEL, "==============================\n");
     dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
     dbg(GENERAL_CHANNEL, "==============================\n");
 
  
-   allNodes[22] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
+   allNodes[] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
 
 command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
@@ -300,6 +300,6 @@ command void LinkStateRouting.printAllRoutingTables() {
 }
 
 
-}
+
    
 }

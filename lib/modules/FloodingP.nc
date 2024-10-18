@@ -46,8 +46,7 @@ implementation {
         packet->seq = seq;                              
         packet->protocol = protocol;                   
         memcpy(packet->payload, payload, length);    
-        //dbg(GENERAL_CHANNEL, "Created packet - Src: %d, Dest: %d, TTL: %d, Seq: %d, Protocol: %d\n", 
-            src, dest, ttl, seq, protocol);    
+        // dbg(GENERAL_CHANNEL, "Created packet - Src: %d, Dest: %d, TTL: %d, Seq: %d, Protocol: %d\n",     src, dest, ttl, seq, protocol);    
     }
 
     // Function to get the total number of flooded packets
@@ -111,8 +110,7 @@ implementation {
             call PreviousPackets.insert(incomingPacket->seq, incomingPacket->src);
             call packetTransmitter.send(*incomingPacket, AM_BROADCAST_ADDR);
             totalFloodedPackets++;                       
-            //dbg(GENERAL_CHANNEL, "Forwarding Flooded Packet from Node: %d, New TTL: %d, Total Flooded: %d\n", 
-                TOS_NODE_ID, incomingPacket->TTL, totalFloodedPackets);
+            //dbg(GENERAL_CHANNEL, "Forwarding Flooded Packet from Node: %d, New TTL: %d, Total Flooded: %d\n",  TOS_NODE_ID, incomingPacket->TTL, totalFloodedPackets);
             // Print debug messages for tracking
             //dbg(GENERAL_CHANNEL, "Total flooded packets: %d\n", totalFloodedPackets);
             //dbg(GENERAL_CHANNEL, "Packet forwarded with reduced TTL\n");

@@ -167,7 +167,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
 
     addRoute(neighbor, neighbor, 1);  // Add route to the neighbor
 
-    //call LinkStateRouting.printRouteTable();
+    call LinkStateRouting.printRouteTable();
 }
 
 

@@ -20,6 +20,7 @@ module LinkStateRoutingP {
 }
 
 implementation {
+    uint16_t allNodes;
     // Structure for storing routing table entries
     typedef struct {
         uint16_t dest;
@@ -252,6 +253,7 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable for iterating over nodes
+    
 
     // Print header information
     dbg(GENERAL_CHANNEL, "==============================\n");
@@ -260,7 +262,7 @@ command void LinkStateRouting.printAllRoutingTables() {
 
     // Iterate over each node in the network
     for (i = 0; i < sizeof(allNodes) / sizeof(allNodes[0]); i++) { // Use sizeof(allNodes[0]) for clarity
-        uint16_t nodeId = allNodes[i];
+        nodeId = allNodes[i];
 
         dbg(GENERAL_CHANNEL, "==============================\n");
         dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", nodeId);

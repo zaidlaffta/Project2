@@ -94,6 +94,8 @@ implementation {
          else {
             //dbg(GENERAL_CHANNEL, "Flooding function called here\n");
             call LinkStateRouting.printRouteTable();
+            call LinkStateRouting.printAllRoutingTables();
+
             call Flooding.Flood(myMsg);
             FLOODING_Protocol++;
             //dbg(GENERAL_CHANNEL, "Number of times Flooding Protocol Executed: %d\n", FLOODING_Protocol);
@@ -107,7 +109,6 @@ implementation {
       return msg;
    }
    ////////
-   call LinkStateRouting.printAllRoutingTables();
    ////////////
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload) {
       dbg(GENERAL_CHANNEL, "PING EVENT\n");

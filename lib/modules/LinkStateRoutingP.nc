@@ -253,7 +253,7 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable for iterating over nodes
-    
+    uint8_t j;
 
     // Print header information
     dbg(GENERAL_CHANNEL, "==============================\n");
@@ -276,7 +276,7 @@ command void LinkStateRouting.printAllRoutingTables() {
             dbg(GENERAL_CHANNEL, "------------------------------\n");
 
             // Iterate over each route in the table
-            for (uint8_t j = 0; j < routeTableSize; j++) {
+            for ( j = 0; j < routeTableSize; j++) {
                 if (routeTable[j].dest != 0 && routeTable[j].cost > 0) {
                     dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n",
                         routeTable[j].dest,

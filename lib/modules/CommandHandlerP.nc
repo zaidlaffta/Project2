@@ -61,7 +61,7 @@ implementation{
 
             case CMD_LINKSTATE_DUMP:
                 dbg(COMMAND_CHANNEL, "Command Type: Link State Dump\n");
-               // call LinkStateRouting.printAllRoutingTables(); 
+                // call LinkStateRouting.printAllRoutingTables(); 
                 signal CommandHandler.printLinkState();
                 break;
     

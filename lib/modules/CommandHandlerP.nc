@@ -16,7 +16,7 @@ module CommandHandlerP{
    uses interface Pool<message_t>;
    uses interface Queue<message_t*>;
    uses interface Packet;
-   
+
    uses interface LinkStateRouting;
 }
 
@@ -64,6 +64,12 @@ implementation{
                 dbg(COMMAND_CHANNEL, "Command Type: Link State Dump\n");
                 signal CommandHandler.printLinkState();
                 break;
+             ////////new command ///////
+           case CMD_ALL_ROUTETABLE_DUMP:  // New command to print all routing tables
+                    dbg(COMMAND_CHANNEL, "Command Type: Print All Routing Tables\n");
+                    call LinkStateRouting.printAllRoutingTables();  
+                    break;
+        ///////////////////////////    
 
             case CMD_ROUTETABLE_DUMP:
                 dbg(COMMAND_CHANNEL, "Command Type: Route Table Dump\n");

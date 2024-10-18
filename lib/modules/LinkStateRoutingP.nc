@@ -194,60 +194,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     command void LinkStateRouting.routePacket(pack* myMsg) {
         dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
     }
-/*
-/////////////////////////// extra function ////////////////////////////
 
-command void LinkStateRouting.routePacket(pack* myMsg) {
-    dbg(GENERAL_CHANNEL, "Routing packet to destination: %d from source: %d\n", myMsg->dest, myMsg->src);
-
-    // Check the packet's TTL (Time to Live)
-    if (myMsg->TTL == 0) {
-        dbg(GENERAL_CHANNEL, "Packet TTL expired. Dropping packet to destination: %d\n", myMsg->dest);
-        return;  // Drop the packet if TTL is 0
-    }
-
-    // Decrement the TTL
-    myMsg->TTL--;
-
-   // uint8_t i;
-    bool routeFound = FALSE;
-
-    // Search the routing table for a matching destination
-    for (uint16_t i = 0; i < routeTableSize; i++) {
-        if (routeTable[i].dest == myMsg->dest) {
-            // Route found: use the next hop from the routing table
-            uint16_t nextHop = routeTable[i].nextHop;
-            dbg(GENERAL_CHANNEL, "Route found! Next Hop: %d for Destination: %d with Cost: %d\n", 
-                nextHop, myMsg->dest, routeTable[i].cost);
-
-            // Step 1: Create a message_t object
-            message_t msg;
-
-            // Step 2: Get the payload section of the message_t (where we will copy myMsg)
-            pack *packetToSend = (pack *) call Packet.getPayload(&msg, sizeof(pack));
-
-            // Step 3: Copy the pack (myMsg) into the payload of message_t
-            memcpy(packetToSend, myMsg, sizeof(pack));
-
-            // Step 4: Send the message_t to the next hop using Broadcast.send()
-            error_t result = call Broadcast.send(&msg, nextHop);
-            if (result != SUCCESS) {
-                dbg(GENERAL_CHANNEL, "Failed to send packet to next hop: %d\n", nextHop);
-            } else {
-                dbg(GENERAL_CHANNEL, "Packet sent to next hop: %d\n", nextHop);
-            }
-
-            routeFound = TRUE;
-            break;
-        }
-    }
-
-    // If no route is found, drop the packet
-    if (!routeFound) {
-        dbg(GENERAL_CHANNEL, "No route found for destination: %d. Dropping packet.\n", myMsg->dest);
-    }
-} */
-/////////////function to print full routing table for all nodes///////////////////
 
 // Function to print the full routing table for all nodes 
 

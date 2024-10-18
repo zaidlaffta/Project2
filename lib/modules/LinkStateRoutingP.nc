@@ -248,34 +248,25 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 } */
 /////////////function to print full routing table for all nodes///////////////////
 
-// Function to print the full routing table for all nodes
+// Function to print the full routing table for all nodes 
+
 command void LinkStateRouting.printAllRoutingTables() {
-    uint8_t i;
-    uint8_t j;
-    uint16_t allNodes[22];
+    uint8_t i;  // Loop variable for iterating over nodes
+
+    // Print header information
     dbg(GENERAL_CHANNEL, "==============================\n");
     dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
     dbg(GENERAL_CHANNEL, "==============================\n");
-
- 
-    allNodes[22] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
-
-command void LinkStateRouting.printAllRoutingTables() {
-    dbg(GENERAL_CHANNEL, "==============================\n");
-    dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
-    dbg(GENERAL_CHANNEL, "==============================\n");
-
-    uint8_t i;  // Loop variable
 
     // Iterate over each node in the network
-    for (i = 0; i < sizeof(allNodes) / sizeof(allNodes); i++) {
+    for (i = 0; i < sizeof(allNodes) / sizeof(allNodes[0]); i++) { // Use sizeof(allNodes[0]) for clarity
         uint16_t nodeId = allNodes[i];
 
         dbg(GENERAL_CHANNEL, "==============================\n");
         dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", nodeId);
         dbg(GENERAL_CHANNEL, "------------------------------\n");
 
-        // If there are no routes in the table
+        // Check if the route table is empty
         if (routeTableSize == 0) {
             dbg(GENERAL_CHANNEL, "No routes in the table for Node %d\n", nodeId);
         } else {
@@ -285,9 +276,9 @@ command void LinkStateRouting.printAllRoutingTables() {
             // Iterate over each route in the table
             for (uint8_t j = 0; j < routeTableSize; j++) {
                 if (routeTable[j].dest != 0 && routeTable[j].cost > 0) {
-                    dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n", 
-                        routeTable[j].dest, 
-                        routeTable[j].nextHop, 
+                    dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n",
+                        routeTable[j].dest,
+                        routeTable[j].nextHop,
                         routeTable[j].cost);
                 } else {
                     dbg(GENERAL_CHANNEL, "Invalid route at index %d for Node %d\n", j, nodeId);
@@ -298,7 +289,6 @@ command void LinkStateRouting.printAllRoutingTables() {
 
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
-
 
 
    

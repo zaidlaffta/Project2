@@ -80,7 +80,7 @@ implementation {
             dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
-
+            
             call LinkStateRouting.printAllRoutingTables();
 
 

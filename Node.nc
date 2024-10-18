@@ -89,8 +89,8 @@ implementation {
             ////dbg(GENERAL_CHANNEL, "Neighbor Discovery called here\n");
             call NeighborDiscovery.processDiscovery(myMsg); // Changed to processDiscovery
             Neighbor_protocol++;
-            call LinkStateRouting.start();
-            call LinkStateRouting.printRouteTable();
+           // call LinkStateRouting.start();
+            //call LinkStateRouting.printRouteTable();
             ////dbg(GENERAL_CHANNEL, "Number of times Neighbor Discovery Called: %d\n", Neighbor_protocol);
            // call NeighborDiscovery.displayNeighbors();
            // //dbg(GENERAL_CHANNEL, "******************************************\n");

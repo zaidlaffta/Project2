@@ -258,7 +258,7 @@ command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 
  
-   allNodes[] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
+   allNodes[22] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
 
 command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
@@ -300,6 +300,6 @@ command void LinkStateRouting.printAllRoutingTables() {
 }
 
 
-
+}
    
 }

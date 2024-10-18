@@ -251,7 +251,6 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 // Function to print the full routing table for all nodes 
 
 command void LinkStateRouting.printAllRoutingTables() {
-    /*
     uint8_t i;  // Loop variable for iterating over nodes
 
     // Print header information
@@ -288,7 +287,7 @@ command void LinkStateRouting.printAllRoutingTables() {
         }
     }
 
-    dbg(GENERAL_CHANNEL, "==============================\n"); */
+    dbg(GENERAL_CHANNEL, "==============================\n"); 
 }
 
 

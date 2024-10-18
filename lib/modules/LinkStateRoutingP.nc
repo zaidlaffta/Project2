@@ -20,7 +20,7 @@ module LinkStateRoutingP {
 }
 
 implementation {
-    uint16_t allNodes;
+    uint16_t allNodes[50];
     // Structure for storing routing table entries
     typedef struct {
         uint16_t dest;

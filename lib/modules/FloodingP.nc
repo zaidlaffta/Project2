@@ -31,7 +31,7 @@ implementation {
     bool isPacketPreviouslySent(uint32_t key, uint32_t val) {
         if (call PreviousPackets.contains(key)) {        
             if (call PreviousPackets.get(key) == val) {  
-                 dbg(GENERAL_CHANNEL, "Packet already forwarded, skipping flood\n");
+                 //dbg(GENERAL_CHANNEL, "Packet already forwarded, skipping flood\n");
                 return TRUE;                             
             }
         }
@@ -46,7 +46,7 @@ implementation {
         packet->seq = seq;                              
         packet->protocol = protocol;                   
         memcpy(packet->payload, payload, length);    
-        dbg(GENERAL_CHANNEL, "Created packet - Src: %d, Dest: %d, TTL: %d, Seq: %d, Protocol: %d\n", 
+        //dbg(GENERAL_CHANNEL, "Created packet - Src: %d, Dest: %d, TTL: %d, Seq: %d, Protocol: %d\n", 
             src, dest, ttl, seq, protocol);    
     }
 
@@ -58,17 +58,17 @@ implementation {
     //Reset the total flooded packets counter
     void resetFloodedPacketCounter() {
         totalFloodedPackets = 0;                     
-        dbg(GENERAL_CHANNEL, "Flooded packet counter reset to 0 \n");  
+        //dbg(GENERAL_CHANNEL, "Flooded packet counter reset to 0 \n");  
     }
 
     // Log the current sequence number for debugging
     void printCurrentSeqNum() {
-        dbg(GENERAL_CHANNEL, "Current sequence number: %d\n", currentSeqNum);
+        //dbg(GENERAL_CHANNEL, "Current sequence number: %d\n", currentSeqNum);
     }
 
     // Command to handle ping packet being send from one node to another node
     command void Flooding.ping(uint16_t destination, uint8_t *payload) {
-        dbg(GENERAL_CHANNEL, "PING command triggered by node: %d, Destination: %d\n", TOS_NODE_ID, destination);
+        //dbg(GENERAL_CHANNEL, "PING command triggered by node: %d, Destination: %d\n", TOS_NODE_ID, destination);
         createPacket(&packetToSend, TOS_NODE_ID, destination, 22, PROTOCOL_PING, currentSeqNum, payload, PACKET_MAX_PAYLOAD_SIZE);
         call packetTransmitter.send(packetToSend, AM_BROADCAST_ADDR);
         currentSeqNum++;                                 
@@ -76,32 +76,32 @@ implementation {
 
     // Command to flood a packet through the network
     command void Flooding.Flood(pack* incomingPacket) {
-        dbg(GENERAL_CHANNEL, "Received Flooded Packet at Node: %d, Seq: %d, TTL: %d\n", TOS_NODE_ID, incomingPacket->seq, incomingPacket->TTL);
+        //dbg(GENERAL_CHANNEL, "Received Flooded Packet at Node: %d, Seq: %d, TTL: %d\n", TOS_NODE_ID, incomingPacket->seq, incomingPacket->TTL);
 
         // Check if the packet was already forwarded previously
         if (isPacketPreviouslySent(incomingPacket->seq, incomingPacket->src)) {
-            dbg(GENERAL_CHANNEL, "Duplicate packet detected at Node: %d, not forwarding\n", TOS_NODE_ID);
+            //dbg(GENERAL_CHANNEL, "Duplicate packet detected at Node: %d, not forwarding\n", TOS_NODE_ID);
         } 
         // If TTL (Time to Live) is 0, the packet should not be forwarded
         else if (incomingPacket->TTL == 0) {
-            dbg(GENERAL_CHANNEL, "Packet TTL expired at Node: %d, not forwarding\n", TOS_NODE_ID);
+            //dbg(GENERAL_CHANNEL, "Packet TTL expired at Node: %d, not forwarding\n", TOS_NODE_ID);
         } 
         // If the packet has reached its destination
         else if (incomingPacket->dest == TOS_NODE_ID) {
-        dbg(GENERAL_CHANNEL, "Flooded Packet reached destination Node: %d, Protocol: %d\n", TOS_NODE_ID, incomingPacket->protocol);
+        //dbg(GENERAL_CHANNEL, "Flooded Packet reached destination Node: %d, Protocol: %d\n", TOS_NODE_ID, incomingPacket->protocol);
 
             // Handle Incoming protocol
             if (incomingPacket->protocol == PROTOCOL_PING) {
-               dbg(GENERAL_CHANNEL, "Flooded Packet reached destination Node: %d, Protocol: %d\n", TOS_NODE_ID, incomingPacket->protocol);
+               //dbg(GENERAL_CHANNEL, "Flooded Packet reached destination Node: %d, Protocol: %d\n", TOS_NODE_ID, incomingPacket->protocol);
                 call PreviousPackets.insert(incomingPacket->seq, incomingPacket->src);
                 // Create a reply packet and send it back
                 createPacket(&packetToSend, incomingPacket->dest, incomingPacket->src, 10, PROTOCOL_PINGREPLY, currentSeqNum++, (uint8_t *) incomingPacket->payload, PACKET_MAX_PAYLOAD_SIZE);
                 call packetTransmitter.send(packetToSend, AM_BROADCAST_ADDR);
-                dbg(GENERAL_CHANNEL, "Flooded Packet sent from Node: %d to Node: %d\n", TOS_NODE_ID, incomingPacket->src);
+                //dbg(GENERAL_CHANNEL, "Flooded Packet sent from Node: %d to Node: %d\n", TOS_NODE_ID, incomingPacket->src);
             } 
             // Handle ping reply protocol
             else if (incomingPacket->protocol == PROTOCOL_PINGREPLY) {
-                dbg(GENERAL_CHANNEL, "Flooded Packet received at destination Node: %d\n", TOS_NODE_ID);
+                //dbg(GENERAL_CHANNEL, "Flooded Packet received at destination Node: %d\n", TOS_NODE_ID);
                 call PreviousPackets.insert(incomingPacket->seq, incomingPacket->src);
             }
         } 
@@ -111,11 +111,11 @@ implementation {
             call PreviousPackets.insert(incomingPacket->seq, incomingPacket->src);
             call packetTransmitter.send(*incomingPacket, AM_BROADCAST_ADDR);
             totalFloodedPackets++;                       
-            dbg(GENERAL_CHANNEL, "Forwarding Flooded Packet from Node: %d, New TTL: %d, Total Flooded: %d\n", 
+            //dbg(GENERAL_CHANNEL, "Forwarding Flooded Packet from Node: %d, New TTL: %d, Total Flooded: %d\n", 
                 TOS_NODE_ID, incomingPacket->TTL, totalFloodedPackets);
             // Print debug messages for tracking
-            dbg(GENERAL_CHANNEL, "Total flooded packets: %d\n", totalFloodedPackets);
-            dbg(GENERAL_CHANNEL, "Packet forwarded with reduced TTL\n");
+            //dbg(GENERAL_CHANNEL, "Total flooded packets: %d\n", totalFloodedPackets);
+            //dbg(GENERAL_CHANNEL, "Packet forwarded with reduced TTL\n");
         }
     }
 }

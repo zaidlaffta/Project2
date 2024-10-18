@@ -35,8 +35,8 @@ implementation {
 
    event void Boot.booted() {
       call AMControl.start();
-      dbg(GENERAL_CHANNEL, "Booted\n");
-      dbg(GENERAL_CHANNEL, "This is LinkSate Protocol \n");
+      //dbg(GENERAL_CHANNEL, "Booted\n");
+      //dbg(GENERAL_CHANNEL, "This is LinkSate Protocol \n");
       call LinkStateRouting.start();
 
 
@@ -44,7 +44,7 @@ implementation {
 
    event void AMControl.startDone(error_t err) {
       if (err == SUCCESS) {
-         dbg(GENERAL_CHANNEL, "Radio On\n");
+         //dbg(GENERAL_CHANNEL, "Radio On\n");
          //call starting NeighborDiscovery function (changed to initialize)
          call NeighborDiscovery.initialize();
       } else {
@@ -58,7 +58,7 @@ implementation {
 
    event void AMControl.stopDone(error_t err) {
       if (err != SUCCESS) {
-         dbg(GENERAL_CHANNEL, "Radio is not working\n");
+         //dbg(GENERAL_CHANNEL, "Radio is not working\n");
       } else {
          //retry again!
          call AMControl.start();
@@ -75,9 +75,9 @@ implementation {
          pack* myMsg = (pack*) payload;
          // Don't print messages from neighbor probe packets or DV packets
          if (strcmp((char*)(myMsg->payload), "NeighborProbing") && myMsg->protocol != PROTOCOL_PING && myMsg->protocol != PROTOCOL_PINGREPLY) {
-            dbg(GENERAL_CHANNEL, "Packet Received\n");
-            dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
-            dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
+            //dbg(GENERAL_CHANNEL, "Packet Received\n");
+            //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
+            //dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
 
@@ -86,40 +86,40 @@ implementation {
 
          }
          else if (myMsg->dest == 0) {
-            //dbg(GENERAL_CHANNEL, "Neighbor Discovery called here\n");
+            ////dbg(GENERAL_CHANNEL, "Neighbor Discovery called here\n");
             call NeighborDiscovery.processDiscovery(myMsg); // Changed to processDiscovery
             Neighbor_protocol++;
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
-            //dbg(GENERAL_CHANNEL, "Number of times Neighbor Discovery Called: %d\n", Neighbor_protocol);
+            ////dbg(GENERAL_CHANNEL, "Number of times Neighbor Discovery Called: %d\n", Neighbor_protocol);
            // call NeighborDiscovery.displayNeighbors();
-           // dbg(GENERAL_CHANNEL, "******************************************\n");
+           // //dbg(GENERAL_CHANNEL, "******************************************\n");
          }//
          else {
-            //dbg(GENERAL_CHANNEL, "Flooding function called here\n");
+            ////dbg(GENERAL_CHANNEL, "Flooding function called here\n");
             call LinkStateRouting.printRouteTable();
             call LinkStateRouting.printAllRoutingTables();
 
             call Flooding.Flood(myMsg);
             FLOODING_Protocol++;
-            //dbg(GENERAL_CHANNEL, "Number of times Flooding Protocol Executed: %d\n", FLOODING_Protocol);
+            ////dbg(GENERAL_CHANNEL, "Number of times Flooding Protocol Executed: %d\n", FLOODING_Protocol);
          }
          return msg;
       }
       // Debug statement for incorrect or corrupted packets
-      //dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
-      //dbg(GENERAL_CHANNEL, "Packet Received\n");
-      //dbg(GENERAL_CHANNEL, "This is a corrupted packet\n");
+      ////dbg(GENERAL_CHANNEL, "Unknown Packet Type %d\n", len);
+      ////dbg(GENERAL_CHANNEL, "Packet Received\n");
+      ////dbg(GENERAL_CHANNEL, "This is a corrupted packet\n");
       return msg;
    }
    ////////
    ////////////
    event void CommandHandler.ping(uint16_t destination, uint8_t *payload) {
-      dbg(GENERAL_CHANNEL, "PING EVENT\n");
+      ////dbg(GENERAL_CHANNEL, "PING EVENT\n");
       makePack(&sendPackage, TOS_NODE_ID, destination, 0, 0, 0, payload, PACKET_MAX_PAYLOAD_SIZE);
       call Sender.send(sendPackage, destination);
       //Calling Flood protocol here
-      dbg(GENERAL_CHANNEL, "Calling Flooding ping\n");
+     // //dbg(GENERAL_CHANNEL, "Calling Flooding ping\n");
       call Flooding.ping(destination, payload);
    }
 
@@ -127,8 +127,8 @@ implementation {
       // call NeighborDiscovery.displayNeighbors(); 
       //disply neighbor disvoered in the hash function
       // call NeighborDiscovery.displayNeighbors();
-      dbg(GENERAL_CHANNEL, "******************************************\n");
-      dbg(GENERAL_CHANNEL, "This is Zaid and Jothi code in the hashfunction");
+      //dbg(GENERAL_CHANNEL, "******************************************\n");
+      //dbg(GENERAL_CHANNEL, "This is Zaid and Jothi code in the hashfunction");
    }
    // Handlers will be used in the future
    event void CommandHandler.printRouteTable() {}

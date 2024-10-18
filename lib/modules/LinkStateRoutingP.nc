@@ -257,7 +257,7 @@ command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 
  
-uint16_t allNodes[] = {1, 2, 3, 4, 5};  
+uint16_t allNodes[] = {1, 2, 3, 4, 5};  // Declare allNodes outside the function
 
 command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n");
@@ -267,7 +267,7 @@ command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable
 
     // Iterate over each node in the network
-    for (i = 0; i < sizeof(allNodes) / sizeof(allNodes[0]); i++) {
+    for (i = 0; i < sizeof(allNodes) / sizeof(allNodes); i++) {
         uint16_t nodeId = allNodes[i];
 
         dbg(GENERAL_CHANNEL, "==============================\n");

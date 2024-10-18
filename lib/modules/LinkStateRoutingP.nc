@@ -250,6 +250,8 @@ command void LinkStateRouting.routePacket(pack* myMsg) {
 
 // Function to print the full routing table for all nodes
 command void LinkStateRouting.printAllRoutingTables() {
+    uint8_t i;
+    uint8_t j;
     dbg(GENERAL_CHANNEL, "==============================\n");
     dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
     dbg(GENERAL_CHANNEL, "==============================\n");

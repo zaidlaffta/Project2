@@ -81,7 +81,7 @@ implementation {
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
 
-            LinkStateRouting.printAllRoutingTables()
+            call LinkStateRouting.printAllRoutingTables();
 
 
          }

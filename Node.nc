@@ -80,7 +80,7 @@ implementation {
             dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
             call LinkStateRouting.start();
             call LinkStateRouting.printRouteTable();
-            
+
             call LinkStateRouting.printAllRoutingTables();
 
 
@@ -124,11 +124,11 @@ implementation {
    }
 
    event void CommandHandler.printNeighbors() {  
-      call NeighborDiscovery.displayNeighbors(); 
+      // call NeighborDiscovery.displayNeighbors(); 
       //disply neighbor disvoered in the hash function
-      call NeighborDiscovery.displayNeighbors();
+      // call NeighborDiscovery.displayNeighbors();
       dbg(GENERAL_CHANNEL, "******************************************\n");
-      dbg(GENERAL_CHANNEL, "Neighbor discovered in the hashfunction");
+      dbg(GENERAL_CHANNEL, "This is Zaid and Jothi code in the hashfunction");
    }
    // Handlers will be used in the future
    event void CommandHandler.printRouteTable() {}

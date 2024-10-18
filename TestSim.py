@@ -143,6 +143,7 @@ def main():
     s.ping(1, 2, "Hello, World");
     #Change runtime
     s.runTime(10);
+    s.neighborDMP(1);
     s.ping(1, 3, "Hi!");
     #change runtime
     s.runTime(10);

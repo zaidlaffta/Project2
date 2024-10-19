@@ -162,7 +162,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
 
     for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == neighbor) {
-            dbg(GENERAL_CHANNEL, "Neighbor %d already exists in the routing table, skipping addition.\n", neighbor);
+           // dbg(GENERAL_CHANNEL, "Neighbor %d already exists in the routing table, skipping addition.\n", neighbor);
             return;  // Neighbor already exists, exit function
         }
     }

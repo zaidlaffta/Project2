@@ -263,6 +263,7 @@ command void LinkStateRouting.printAllRoutingTables() {
 ///////////////////
 // Dijkstra's algorithm to find the shortest paths
     command void LinkStateRouting.runDijkstra() {
+        uint16_t MAX_NODES;
         uint16_t dist[MAX_NODES];   // Distance array
         uint16_t prev[MAX_NODES];   // Previous node array
         uint8_t visited[MAX_NODES]; // Visited node array

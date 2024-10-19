@@ -69,7 +69,6 @@ implementation {
             ////dbg(GENERAL_CHANNEL, "Ping reply got received, confirmed neighbor %d\n", message->src);
             // Add or update the neighbor in the NeighborCache with a fresh TTL
             //for the second project, this statement needed
-            // Add the neighbor to LinkStateRouting222222222222222222222222222222222
             call LinkStateRouting.handleNeighborFound(message->src);
             if (!call NeighborCache.contains(message->src)) {
                 call NeighborCache.insert(message->src, NODETIMETOLIVE);

@@ -42,8 +42,7 @@ implementation {
 
     components new SimpleSendC(AM_PACK);
     LinkStateRoutingP.Broadcast -> SimpleSendC;
-
-
+    
     components NeighborDiscoveryC;
     LinkStateRoutingP.NeighborDiscovery -> NeighborDiscoveryC;    
 

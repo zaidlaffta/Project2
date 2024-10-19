@@ -98,7 +98,7 @@ implementation {
          else {
             ////dbg(GENERAL_CHANNEL, "Flooding function called here\n");
             call LinkStateRouting.printRouteTable();
-            call LinkStateRouting.printAllRoutingTables();
+           // call LinkStateRouting.printAllRoutingTables();
 
             call Flooding.Flood(myMsg);
             FLOODING_Protocol++;

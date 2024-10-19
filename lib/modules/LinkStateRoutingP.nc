@@ -47,6 +47,26 @@ implementation {
     uint8_t routeTableSize = 0;
 
 ///FUnctions implementation
+
+//add global route in fuction///
+ // Function to add a route to the global routing table
+    void addGlobalRoute(uint16_t nodeId, uint16_t dest, uint16_t nextHop, uint16_t cost) {
+        // Check if the global routing table is full
+        if (globalRouteTableSize >= 50) {
+            dbg(GENERAL_CHANNEL, "Global routing table is full, cannot add more routes.\n");
+            return;
+        }
+
+        dbg(GENERAL_CHANNEL, "Adding to global route: NodeID = %d, Destination = %d, NextHop = %d, Cost = %d\n",
+            nodeId, dest, nextHop, cost);
+
+        globalRouteTable[globalRouteTableSize].nodeId = nodeId;
+        globalRouteTable[globalRouteTableSize].dest = dest;
+        globalRouteTable[globalRouteTableSize].nextHop = nextHop;
+        globalRouteTable[globalRouteTableSize].cost = cost;
+        globalRouteTableSize++;
+    }
+    //////
 void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
     // Check if the routing table is full
     if (routeTableSize >= 10) {

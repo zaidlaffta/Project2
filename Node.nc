@@ -136,10 +136,11 @@ implementation {
    event void CommandHandler.printLinkState() {
       call LinkStateRouting.start();
       call LinkStateRouting.printRouteTable();
+      call LinkStateRouting.printGlobalRouteTable();
+
 
       
    }
-   call LinkStateRouting.printGlobalRouteTable();
    event void CommandHandler.printDistanceVector() {}
 
    event void CommandHandler.setTestServer() {}

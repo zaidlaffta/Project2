@@ -122,9 +122,7 @@ command void LinkStateRouting.start() {
 
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     uint8_t i;  // Move variable declaration to the top
-
-     dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
-
+    // dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
     for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == neighbor) {
            // dbg(GENERAL_CHANNEL, "Neighbor %d already exists in the routing table, skipping addition.\n", neighbor);
@@ -136,7 +134,6 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
 
     call LinkStateRouting.printRouteTable();
 }
-
 
 
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {

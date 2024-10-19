@@ -82,7 +82,7 @@ implementation {
             //call LinkStateRouting.printRouteTable();
 
           //  call LinkStateRouting.printAllRoutingTables();
-
+         call LinkStateRouting.printGlobalRouteTable();
 
          }
          else if (myMsg->dest == 0) {
@@ -134,7 +134,7 @@ implementation {
    event void CommandHandler.printRouteTable() {}
 
    event void CommandHandler.printLinkState() {
-     // call LinkStateRouting.start();
+      call LinkStateRouting.start();
       call LinkStateRouting.printRouteTable();
       call LinkStateRouting.printGlobalRouteTable();
 

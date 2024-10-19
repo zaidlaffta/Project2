@@ -174,11 +174,37 @@ command void LinkStateRouting.start() {
     addRoute(src, myMsg->src, cost);
 }
 
+command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
+    uint8_t i;  // Loop variable
 
-    command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
-        dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
-        // Update routing table or remove affected routes
+    // Log the lost neighbor event
+    dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
+
+    // Iterate through the routing table to find routes that depend on the lost neighbor
+    for (i = 0; i < routeTableSize; i++) {
+        // Check if the next hop for the route is the lost neighbor
+        if (routeTable[i].nextHop == lostNeighbor) {
+            dbg(GENERAL_CHANNEL, "Removing route to destination %d via lost neighbor %d\n", 
+                routeTable[i].dest, lostNeighbor);
+
+            // Shift remaining entries in the routing table to fill the gap
+            uint8_t j;
+            for (j = i; j < routeTableSize - 1; j++) {
+                routeTable[j] = routeTable[j + 1];
+            }
+
+            // Reduce the size of the routing table
+            routeTableSize--;
+
+            // Adjust the loop to check the new entry at index i
+            i--;
+        }
     }
+
+    // Log the updated routing table
+    call LinkStateRouting.printRouteTable();
+}
+
 
 
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {

@@ -60,7 +60,42 @@ void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
     routeTable[routeTableSize].nextHop = nextHop;
     routeTable[routeTableSize].cost = cost;
     routeTableSize++;
+    // Add to global routing table as well
+    addGlobalRoute(TOS_NODE_ID, dest, nextHop, cost);
 }
+
+/////////////Global routing table//////////////////
+command void LinkStateRouting.printGlobalRouteTable() {
+        uint8_t i;
+
+        // Print header information
+        dbg(GENERAL_CHANNEL, "==============================\n");
+        dbg(GENERAL_CHANNEL, "Global Routing Table\n");
+        dbg(GENERAL_CHANNEL, "==============================\n");
+
+        // If global routing table is empty
+        if (globalRouteTableSize == 0) {
+            dbg(GENERAL_CHANNEL, "Global routing table is empty.\n");
+            return;
+        }
+
+        // Print the global routing table
+        dbg(GENERAL_CHANNEL, "| NodeID | Destination | Next Hop | Cost |\n");
+        dbg(GENERAL_CHANNEL, "------------------------------------------\n");
+
+        for (i = 0; i < globalRouteTableSize; i++) {
+            dbg(GENERAL_CHANNEL, "|   %d   |      %d      |    %d    |  %d  |\n",
+                globalRouteTable[i].nodeId,
+                globalRouteTable[i].dest,
+                globalRouteTable[i].nextHop,
+                globalRouteTable[i].cost);
+        }
+
+        dbg(GENERAL_CHANNEL, "==============================\n");
+    }
+}
+//////////////////////end of globla routing table///////////////////
+
 
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;

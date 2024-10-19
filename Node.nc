@@ -134,8 +134,8 @@ implementation {
    event void CommandHandler.printRouteTable() {}
 
    event void CommandHandler.printLinkState() {
-      // call LinkStateRouting.start();
-      // call LinkStateRouting.printRouteTable();
+      call LinkStateRouting.start();
+      call LinkStateRouting.printRouteTable();
       dbg(GENERAL_CHANNEL, " this $$$$$$$$$$$$$$$$ \n");
    }
 

@@ -176,6 +176,7 @@ command void LinkStateRouting.start() {
 
 command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
     uint8_t i;  // Loop variable
+    uint8_t j;
 
     // Log the lost neighbor event
     dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
@@ -187,8 +188,7 @@ command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
             dbg(GENERAL_CHANNEL, "Removing route to destination %d via lost neighbor %d\n", 
                 routeTable[i].dest, lostNeighbor);
 
-            // Shift remaining entries in the routing table to fill the gap
-            uint8_t j;
+           
             for (j = i; j < routeTableSize - 1; j++) {
                 routeTable[j] = routeTable[j + 1];
             }

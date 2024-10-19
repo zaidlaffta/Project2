@@ -73,6 +73,7 @@ implementation {
             if (!call NeighborCache.contains(message->src)) {
                 call NeighborCache.insert(message->src, NODETIMETOLIVE);
             }
+            dbg(GENERAL_CHANNEL, "&&&&&&&&&&&&&&&&&&&&&&&& \n");
             call LinkStateRouting.printGlobalRouteTable();
         }
     }

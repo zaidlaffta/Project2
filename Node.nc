@@ -136,9 +136,10 @@ implementation {
    event void CommandHandler.printLinkState() {
       call LinkStateRouting.start();
       call LinkStateRouting.printRouteTable();
-      dbg(GENERAL_CHANNEL, " this $$$$$$$$$$$$$$$$ \n");
-   }
 
+      
+   }
+   call LinkStateRouting.printGlobalRouteTable();
    event void CommandHandler.printDistanceVector() {}
 
    event void CommandHandler.setTestServer() {}

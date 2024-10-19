@@ -75,6 +75,7 @@ implementation {
             }
             dbg(GENERAL_CHANNEL, "&&&&&&&&&&&&&&&&&&&&&&&& \n");
             call LinkStateRouting.printGlobalRouteTable();
+            dbg(GENERAL_CHANNEL, "end of global routing table zaid \n");
         }
     }
     

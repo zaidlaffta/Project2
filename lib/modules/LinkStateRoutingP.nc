@@ -93,7 +93,7 @@ command void LinkStateRouting.printGlobalRouteTable() {
 
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
-}
+
 //////////////////////end of globla routing table///////////////////
 
 

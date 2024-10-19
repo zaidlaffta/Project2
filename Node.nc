@@ -78,7 +78,7 @@ implementation {
             //dbg(GENERAL_CHANNEL, "Packet Received\n");
             //dbg(GENERAL_CHANNEL, "Package Payload: %s\n", myMsg->payload);
             //dbg(GENERAL_CHANNEL, "%d\n", myMsg->protocol);
-            call LinkStateRouting.start();
+           // call LinkStateRouting.start();
             //call LinkStateRouting.printRouteTable();
 
           //  call LinkStateRouting.printAllRoutingTables();

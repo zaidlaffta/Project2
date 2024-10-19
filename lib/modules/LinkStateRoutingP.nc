@@ -21,8 +21,7 @@ module LinkStateRoutingP {
 
 implementation {
     uint16_t allNodes[50];
-/////////// global route entry///////
-// Structure for storing routing table entries
+    //node routing table
     typedef struct {
         uint16_t dest;
         uint16_t nextHop;
@@ -30,7 +29,7 @@ implementation {
         uint16_t nodeId;  // Node that the route belongs to
     } globalRouteEntry;
 
-    // Global Routing Table - Can hold up to 50 entries
+    // Global Routing Table
     globalRouteEntry globalRouteTable[50];
     uint8_t globalRouteTableSize = 0;
 
@@ -66,9 +65,9 @@ implementation {
         globalRouteTable[globalRouteTableSize].cost = cost;
         globalRouteTableSize++;
     }
-    //////
+
+    //////////// function to add routes//////////////
 void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
-    // Check if the routing table is full
     if (routeTableSize >= 10) {
         dbg(GENERAL_CHANNEL, "Routing table full, cannot add more routes.\n");
         return;
@@ -113,8 +112,6 @@ command void LinkStateRouting.printGlobalRouteTable() {
 
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
-
-//////////////////////end of globla routing table///////////////////
 
 
 command void LinkStateRouting.printRouteTable() {

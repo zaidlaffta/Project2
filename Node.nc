@@ -82,7 +82,6 @@ implementation {
             //call LinkStateRouting.printRouteTable();
 
           //  call LinkStateRouting.printAllRoutingTables();
-         call LinkStateRouting.printGlobalRouteTable();
 
          }
          else if (myMsg->dest == 0) {
@@ -138,7 +137,7 @@ implementation {
     //  call LinkStateRouting.printRouteTable();
     //  call LinkStateRouting.printGlobalRouteTable();
 
-
+kjashdf 
       
    }
    event void CommandHandler.printDistanceVector() {}

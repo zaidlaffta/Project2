@@ -73,9 +73,7 @@ implementation {
             if (!call NeighborCache.contains(message->src)) {
                 call NeighborCache.insert(message->src, NODETIMETOLIVE);
             }
-            dbg(GENERAL_CHANNEL, "&&&&&&&&&&&&&&&&&&&&&&&& \n");
-            call LinkStateRouting.printGlobalRouteTable();
-            dbg(GENERAL_CHANNEL, "end of global routing table zaid \n");
+            //call LinkStateRouting.printGlobalRouteTable();
         }
     }
     

@@ -11,4 +11,5 @@ interface LinkStateRouting {
     command void handleNeighborFound(uint16_t neighbor);
     command void printRouteTable();
     command void printAllRoutingTables();
+    command void printGlobalRouteTable();
 }

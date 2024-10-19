@@ -158,7 +158,7 @@ command void LinkStateRouting.start() {
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     uint8_t i;  // Move variable declaration to the top
 
-    dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
+    // dbg(GENERAL_CHANNEL, "New neighbor found: %d\n", neighbor);
 
     for (i = 0; i < routeTableSize; i++) {
         if (routeTable[i].dest == neighbor) {

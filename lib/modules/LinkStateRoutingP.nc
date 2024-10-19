@@ -13,12 +13,10 @@ module LinkStateRoutingP {
 }
 
 implementation {
-    // Maximum number of nodes
     #define MAX_NODES 50
     #define INFINITY 65535  // Represents an unreachable cost
 
-    // Array to store all known nodes
-    uint16_t allNodes[MAX_NODES];
+    uint16_t allNodes[MAX_NODES];  // Array to store all known nodes
 
     // Structure for global routing table entries
     typedef struct {
@@ -45,13 +43,11 @@ implementation {
 
     // Function to add a route to the global routing table
     void addGlobalRoute(uint16_t nodeId, uint16_t dest, uint16_t nextHop, uint16_t cost) {
-        // Check if the global routing table is full
         if (globalRouteTableSize >= MAX_NODES) {
             dbg(GENERAL_CHANNEL, "Global routing table is full, cannot add more routes.\n");
             return;
         }
 
-        // Add the route to the global table
         globalRouteTable[globalRouteTableSize].nodeId = nodeId;
         globalRouteTable[globalRouteTableSize].dest = dest;
         globalRouteTable[globalRouteTableSize].nextHop = nextHop;
@@ -64,78 +60,22 @@ implementation {
 
     // Function to add a route to the local routing table
     void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
-        // Check if the local routing table is full
         if (routeTableSize >= 10) {
             dbg(GENERAL_CHANNEL, "Local routing table full, cannot add more routes.\n");
             return;
         }
 
-        // Add the route to the local table
         routeTable[routeTableSize].dest = dest;
         routeTable[routeTableSize].nextHop = nextHop;
         routeTable[routeTableSize].cost = cost;
         routeTableSize++;
 
-        // Also add to the global routing table
         addGlobalRoute(TOS_NODE_ID, dest, nextHop, cost);
 
         dbg(GENERAL_CHANNEL, "Route Added: Dest = %d, NextHop = %d, Cost = %d\n", dest, nextHop, cost);
     }
 
-    // Function to print the global routing table
-    command void LinkStateRouting.printGlobalRouteTable() {
-        uint8_t i;
-
-        dbg(GENERAL_CHANNEL, "==============================\n");
-        dbg(GENERAL_CHANNEL, "Global Routing Table\n");
-        dbg(GENERAL_CHANNEL, "==============================\n");
-
-        if (globalRouteTableSize == 0) {
-            dbg(GENERAL_CHANNEL, "Global routing table is empty.\n");
-            return;
-        }
-
-        dbg(GENERAL_CHANNEL, "| NodeID | Destination | Next Hop | Cost |\n");
-        dbg(GENERAL_CHANNEL, "------------------------------------------\n");
-
-        for (i = 0; i < globalRouteTableSize; i++) {
-            dbg(GENERAL_CHANNEL, "|   %d   |      %d      |    %d    |  %d  |\n",
-                globalRouteTable[i].nodeId,
-                globalRouteTable[i].dest,
-                globalRouteTable[i].nextHop,
-                globalRouteTable[i].cost);
-        }
-
-        dbg(GENERAL_CHANNEL, "==============================\n");
-    }
-
-    // Function to print the local routing table
-    command void LinkStateRouting.printRouteTable() {
-        uint8_t i;
-
-        dbg(GENERAL_CHANNEL, "==============================\n");
-        dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", TOS_NODE_ID);
-        dbg(GENERAL_CHANNEL, "==============================\n");
-
-        if (routeTableSize == 0) {
-            dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
-            return;
-        }
-
-        dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
-        dbg(GENERAL_CHANNEL, "--------------------------------\n");
-
-        for (i = 0; i < routeTableSize; i++) {
-            dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n", 
-                routeTable[i].dest, 
-                routeTable[i].nextHop, 
-                routeTable[i].cost);
-        }
-
-        dbg(GENERAL_CHANNEL, "==============================\n");
-    }
-
-    // Function to implement Dijkstra's algorithm for finding shortest paths
+    // Dijkstra's algorithm to find the shortest paths
     command void LinkStateRouting.runDijkstra() {
         uint16_t dist[MAX_NODES];   // Distance array
         uint16_t prev[MAX_NODES];   // Previous node array
@@ -197,11 +137,12 @@ implementation {
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
 
-    // Handle booting and start Link State Routing
+    // Other existing functions...
+
     command void LinkStateRouting.start() {
         dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
         call NeighborDiscovery.initialize();
-        routeTableSize = 0;
+        routeTableSize = 0;  // Reset the size of the routing table
         dbg(GENERAL_CHANNEL, "Link State Routing initialized\n");
     }
 }

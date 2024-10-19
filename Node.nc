@@ -135,7 +135,7 @@ implementation {
 
    event void CommandHandler.printLinkState() {
       call LinkStateRouting.start();
-      call LinkStateRouting.printRouteTable();
+     // call LinkStateRouting.printRouteTable();
       call LinkStateRouting.printGlobalRouteTable();
 
 

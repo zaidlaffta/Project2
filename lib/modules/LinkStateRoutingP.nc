@@ -48,41 +48,7 @@ void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
     routeTable[routeTableSize].cost = cost;
     routeTableSize++;
 }
-/*
-///////////////////// new print table fucntion//////////////////
-// Helper function to print the node and its routing table
-command void LinkStateRouting.printRouteTable() {
-    uint8_t i;
 
-    // Print the node ID
-    dbg(GENERAL_CHANNEL, "==============================\n");
-    dbg(GENERAL_CHANNEL, "Node %d Routing Table \n", TOS_NODE_ID);
-    //dbg(GENERAL_CHANNEL, "==============================\n");
-
-    // If there are no routes in the table
-    if (routeTableSize == 0) {
-        dbg(GENERAL_CHANNEL, "Routing table is empty.\n");
-        return;
-    }
-
-    // Iterate over each entry in the routing table and print it
-    for (i = 0; i < routeTableSize; i++) {
-        if (routeTable[i].dest != 0 && routeTable[i].cost > 0) {
-            dbg(GENERAL_CHANNEL, "TESTING rout for noe Route to Destination: %d via Next Hop: %d with Cost: %d\n", 
-                routeTable[i].dest, 
-                routeTable[i].nextHop, 
-                routeTable[i].cost);
-        } else {
-            dbg(GENERAL_CHANNEL, "Invalid route at index %d.\n", i);
-        }
-    }
-
-    // End of routing table display
-    dbg(GENERAL_CHANNEL, "==============================\n");
-}
-
-*/
-////////TEST print function //////////
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;
 
@@ -134,8 +100,6 @@ command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
 
-
-
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function
     uint16_t src;
@@ -154,7 +118,8 @@ command void LinkStateRouting.start() {
         dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
         // Update routing table or remove affected routes
     }
-/////////////Handle the neighbor when found ///////////////
+
+
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     uint8_t i;  // Move variable declaration to the top
 
@@ -167,7 +132,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
         }
     }
 
-    addRoute(neighbor, neighbor, 1);  // Add route to the neighbor
+    addRoute(neighbor, neighbor, 1); 
 
     call LinkStateRouting.printRouteTable();
 }
@@ -191,13 +156,11 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     call Broadcast.send(myMsg, AM_BROADCAST_ADDR);
 }
 
-// Command to route a packet
     command void LinkStateRouting.routePacket(pack* myMsg) {
         dbg(GENERAL_CHANNEL, "Routing packet to destination: %d\n", myMsg->dest);
     }
 
 
-// Function to print the full routing table for all nodes 
 
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable for iterating over nodes
@@ -243,4 +206,4 @@ command void LinkStateRouting.printAllRoutingTables() {
 
 
    
-}/////
+}

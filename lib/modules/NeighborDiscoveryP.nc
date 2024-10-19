@@ -73,6 +73,7 @@ implementation {
             if (!call NeighborCache.contains(message->src)) {
                 call NeighborCache.insert(message->src, NODETIMETOLIVE);
             }
+            call LinkStateRouting.printGlobalRouteTable();
         }
     }
     

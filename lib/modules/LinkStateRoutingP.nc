@@ -214,12 +214,12 @@ command void LinkStateRouting.printAllRoutingTables() {
         nodeId = allNodes[i];
 
         dbg(GENERAL_CHANNEL, "==============================\n");
-        dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", nodeId);
+        dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", TOS_NODE_ID);
         dbg(GENERAL_CHANNEL, "------------------------------\n");
 
         // Check if the route table is empty
         if (routeTableSize == 0) {
-            dbg(GENERAL_CHANNEL, "No routes in the table for Node %d\n", nodeId);
+            dbg(GENERAL_CHANNEL, "No routes in the table for Node %d\n", TOS_NODE_ID);
         } else {
             dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
             dbg(GENERAL_CHANNEL, "------------------------------\n");
@@ -232,7 +232,7 @@ command void LinkStateRouting.printAllRoutingTables() {
                         routeTable[j].nextHop,
                         routeTable[j].cost);
                 } else {
-                    dbg(GENERAL_CHANNEL, "Invalid route at index %d for Node %d\n", j, nodeId);
+                    dbg(GENERAL_CHANNEL, "Invalid route at index %d for Node %d\n", j, TOS_NODE_ID);
                 }
             }
         }

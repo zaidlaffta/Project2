@@ -12,4 +12,5 @@ interface LinkStateRouting {
     command void printRouteTable();
     command void printAllRoutingTables();
     command void printGlobalRouteTable();
+    command void runDijkstra();
 }

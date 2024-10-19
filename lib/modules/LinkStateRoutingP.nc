@@ -16,12 +16,25 @@ module LinkStateRoutingP {
     uses interface NeighborDiscovery;
     uses interface SimpleSend as Broadcast;
     //uses interface CommandHandler;
-
     
 }
 
 implementation {
     uint16_t allNodes[50];
+/////////// global route entry///////
+// Structure for storing routing table entries
+    typedef struct {
+        uint16_t dest;
+        uint16_t nextHop;
+        uint16_t cost;
+        uint16_t nodeId;  // Node that the route belongs to
+    } globalRouteEntry;
+
+    // Global Routing Table - Can hold up to 50 entries
+    globalRouteEntry globalRouteTable[50];
+    uint8_t globalRouteTableSize = 0;
+
+    ////end of global rout entry
     // Structure for storing routing table entries
     typedef struct {
         uint16_t dest;
@@ -83,7 +96,6 @@ command void LinkStateRouting.printRouteTable() {
     // End of routing table display
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
-////////////// test print function ////////
 
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");

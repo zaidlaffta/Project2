@@ -260,6 +260,68 @@ command void LinkStateRouting.printAllRoutingTables() {
     dbg(GENERAL_CHANNEL, "==============================\n"); 
 }
 
+///////////////////
+// Dijkstra's algorithm to find the shortest paths
+    command void LinkStateRouting.runDijkstra() {
+        uint16_t dist[MAX_NODES];   // Distance array
+        uint16_t prev[MAX_NODES];   // Previous node array
+        uint8_t visited[MAX_NODES]; // Visited node array
+        uint8_t i, j, u, minDist;
+
+        // Initialize arrays
+        for (i = 0; i < MAX_NODES; i++) {
+            dist[i] = INFINITY;
+            prev[i] = INFINITY;
+            visited[i] = 0;
+        }
+
+        // Start from the current node
+        dist[TOS_NODE_ID] = 0;
+
+        // Main loop of Dijkstra's algorithm
+        for (i = 0; i < MAX_NODES; i++) {
+            // Find the unvisited node with the smallest distance
+            minDist = INFINITY;
+            u = INFINITY;
+
+            for (j = 0; j < MAX_NODES; j++) {
+                if (!visited[j] && dist[j] < minDist) {
+                    minDist = dist[j];
+                    u = j;
+                }
+            }
+
+            // If no reachable node is found, break
+            if (u == INFINITY) break;
+
+            // Mark node as visited
+            visited[u] = 1;
+
+            // Update distances for neighbors of the node
+            for (j = 0; j < routeTableSize; j++) {
+                if (routeTable[j].dest == u) {
+                    uint16_t alt = dist[u] + routeTable[j].cost;
+                    if (alt < dist[routeTable[j].dest]) {
+                        dist[routeTable[j].dest] = alt;
+                        prev[routeTable[j].dest] = u;
+                    }
+                }
+            }
+        }
+
+        // Print the shortest paths from the current node
+        dbg(GENERAL_CHANNEL, "Dijkstra's Algorithm Results for Node %d\n", TOS_NODE_ID);
+        dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
+        dbg(GENERAL_CHANNEL, "--------------------------------\n");
+
+        for (i = 0; i < MAX_NODES; i++) {
+            if (dist[i] < INFINITY) {
+                dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n", i, prev[i], dist[i]);
+            }
+        }
+
+        dbg(GENERAL_CHANNEL, "==============================\n");
+    }
 
    
 }

@@ -134,7 +134,7 @@ implementation {
 
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
-}
+
     // Function to implement Dijkstra's algorithm for finding shortest paths
     command void LinkStateRouting.runDijkstra() {
         uint16_t dist[MAX_NODES];   // Distance array

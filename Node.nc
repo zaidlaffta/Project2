@@ -86,8 +86,7 @@ implementation {
          }
          else if (myMsg->dest == 0) {
             ////dbg(GENERAL_CHANNEL, "Neighbor Discovery called here\n");
-           // call NeighborDiscovery.processDiscovery(myMsg); // Changed to processDiscovery
-            //call LinkStateRouting.printGlobalRouteTable();
+            call NeighborDiscovery.processDiscovery(myMsg); // Changed to processDiscovery
             Neighbor_protocol++;
            // call LinkStateRouting.start();
             //call LinkStateRouting.printRouteTable();

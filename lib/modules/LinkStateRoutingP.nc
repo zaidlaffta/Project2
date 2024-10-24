@@ -503,6 +503,44 @@ implementation {
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
 
+    // Command to print routing tables for all nodes
+    command void LinkStateRouting.printAllRoutingTables() {
+        uint8_t i, j;
+        uint16_t nodeId;
+
+        dbg(GENERAL_CHANNEL, "==============================\n");
+        dbg(GENERAL_CHANNEL, "Printing Full Routing Tables for All Nodes\n");
+        dbg(GENERAL_CHANNEL, "==============================\n");
+
+        for (i = 0; i < sizeof(allNodes) / sizeof(allNodes[0]); i++) {
+            nodeId = allNodes[i];
+
+            dbg(GENERAL_CHANNEL, "==============================\n");
+            dbg(GENERAL_CHANNEL, "Routing Table for Node %d\n", nodeId);
+            dbg(GENERAL_CHANNEL, "------------------------------\n");
+
+            if (routeTableSize == 0) {
+                dbg(GENERAL_CHANNEL, "No routes in the table for Node %d\n", nodeId);
+            } else {
+                dbg(GENERAL_CHANNEL, "| Destination | Next Hop | Cost |\n");
+                dbg(GENERAL_CHANNEL, "------------------------------\n");
+
+                for (j = 0; j < routeTableSize; j++) {
+                    if (routeTable[j].dest != 0 && routeTable[j].cost > 0) {
+                        dbg(GENERAL_CHANNEL, "|      %d      |    %d    |  %d  |\n",
+                            routeTable[j].dest,
+                            routeTable[j].nextHop,
+                            routeTable[j].cost);
+                    } else {
+                        dbg(GENERAL_CHANNEL, "Invalid route at index %d for Node %d\n", j, nodeId);
+                    }
+                }
+            }
+        }
+
+        dbg(GENERAL_CHANNEL, "==============================\n"); 
+    }
+
     // Initialize Dijkstra's arrays
     void initDijkstra() {
         uint8_t i;

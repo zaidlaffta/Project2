@@ -15,7 +15,7 @@ module LinkStateRoutingP {
     provides interface LinkStateRouting;
     uses interface NeighborDiscovery;
     uses interface SimpleSend as Broadcast;
-    //uses interface CommandHandler;
+    uses interface CommandHandler;
     
 }
 

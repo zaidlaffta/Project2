@@ -163,6 +163,7 @@ command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Link State Routing setup complete\n");
 }
 
+/////////////////////// Handle Link State routing masseges//////////////////
    command void LinkStateRouting.handleLS(pack* myMsg) {
     // Declare all variables at the beginning of the function
     uint16_t src;
@@ -176,6 +177,7 @@ command void LinkStateRouting.start() {
     addRoute(src, myMsg->src, cost);
 }
 
+///////////////////// Handl lost neighborss //////////////////////
 command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
     uint8_t i;  // Loop variable
     uint8_t j;
@@ -208,7 +210,7 @@ command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
 }
 
 
-
+//////////////// Handleing found Neighbors//////////////////////
 command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     uint8_t i;  // Move variable declaration to the top
     for (i = 0; i < routeTableSize; i++) {
@@ -222,7 +224,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     call LinkStateRouting.printRouteTable();
 }
 
-
+////////////////// Ping function ///////////
     command void LinkStateRouting.ping(uint16_t destination, uint8_t *payload) {
     // Declare the pack structure at the beginning of the function
     pack myMsg;
@@ -245,7 +247,7 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
     }
 
 
-
+/////////////// printing full routing table /////////////////////
 command void LinkStateRouting.printAllRoutingTables() {
     uint8_t i;  // Loop variable for iterating over nodes
     uint8_t j;

@@ -219,7 +219,9 @@ command void LinkStateRouting.handleNeighborFound(uint16_t neighbor) {
         }
     }
 
-    addRoute(neighbor, neighbor, 1); 
+    addRoute(neighbor, neighbor, 1);
+    
+    call LinkStateRouting.runDijkstra();
 
     call LinkStateRouting.printRouteTable();
 }

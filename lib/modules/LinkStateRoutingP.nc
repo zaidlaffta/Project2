@@ -45,7 +45,7 @@ implementation {
     routeTableEntry routeTable[10];  // Can hold up to 10 entries
     uint8_t routeTableSize = 0;
 
- //////// Function to add a route to the global routing table////////
+ ///////////// Function to add a route to the global routing table////////////
     void addGlobalRoute(uint16_t nodeId, uint16_t dest, uint16_t nextHop, uint16_t cost) {
         // Check if the global routing table is full
         if (globalRouteTableSize >= 50) {
@@ -80,7 +80,7 @@ void addRoute(uint16_t dest, uint16_t nextHop, uint16_t cost) {
     addGlobalRoute(TOS_NODE_ID, dest, nextHop, cost);
 }
 
-/////////////Global routing table//////////////////
+/////////////////Global routing table//////////////////
 command void LinkStateRouting.printGlobalRouteTable() {
         uint8_t i;
 
@@ -110,6 +110,7 @@ command void LinkStateRouting.printGlobalRouteTable() {
         dbg(GENERAL_CHANNEL, "==============================\n");
     }
 
+/////////////////Global local node routing table//////////////////
 
 command void LinkStateRouting.printRouteTable() {
     uint8_t i;
@@ -146,13 +147,14 @@ command void LinkStateRouting.printRouteTable() {
     dbg(GENERAL_CHANNEL, "==============================\n");
 }
 
+/////////////////Start getting route discovery//////////////////
 command void LinkStateRouting.start() {
     dbg(GENERAL_CHANNEL, "Starting Link State Routing\n");
 
     dbg(GENERAL_CHANNEL, "Initializing NeighborDiscovery\n");
     call NeighborDiscovery.initialize();
 
-    dbg(GENERAL_CHANNEL, "NeighborDiscovery initialized successfully\n");
+    //dbg(GENERAL_CHANNEL, "NeighborDiscovery initialized successfully\n");
 
     routeTableSize = 0;  // Reset the size of the routing table
     dbg(GENERAL_CHANNEL, "Routing table has been reset\n");
@@ -166,7 +168,7 @@ command void LinkStateRouting.start() {
     uint16_t src;
     uint16_t cost;
 
-    dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
+    //dbg(GENERAL_CHANNEL, "Handling Link State Packet\n");
 
     src = myMsg->src;
     cost = myMsg->TTL;  // Assuming TTL represents the cost
@@ -179,7 +181,7 @@ command void LinkStateRouting.handleNeighborLost(uint16_t lostNeighbor) {
     uint8_t j;
 
     // Log the lost neighbor event
-    dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
+   // dbg(GENERAL_CHANNEL, "Lost neighbor: %d\n", lostNeighbor);
 
     // Iterate through the routing table to find routes that depend on the lost neighbor
     for (i = 0; i < routeTableSize; i++) {

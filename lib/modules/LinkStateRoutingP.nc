@@ -173,6 +173,8 @@ command void LinkStateRouting.start() {
 
     src = myMsg->src;
     cost = myMsg->TTL;  // Assuming TTL represents the cost
+    
+    call LinkStateRouting.runDijkstra();
 
     addRoute(src, myMsg->src, cost);
 }

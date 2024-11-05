@@ -145,6 +145,7 @@ def main():
     s.runTime(10);
     # s.neighborDMP(1);
     s.ping(1, 9, "Hi!");
+    s.moteOff(8);
     #change runtime
     s.runTime(10);
 
